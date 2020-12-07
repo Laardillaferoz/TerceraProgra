@@ -46,11 +46,11 @@ router.post('/users/signup', async (req, res) => {
             password
         });
     } else {
-        //const nombreUsuario = usuario.findOne({user: user});
-        //if (nombreUsuario) {
-          //  req.flash('error_msg', 'Usuario ya registrado');
-            //res.redirect('/users/signup');
-        //}
+        const nombreUsuario = usuario.findOne({user: user});
+        if (nombreUsuario) {
+            req.flash('error_msg', 'Usuario ya registrado');
+            res.redirect('/users/signup');
+        }
         const nuevoUsuario = new usuario({
             name,
             lastName,
