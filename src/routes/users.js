@@ -46,7 +46,7 @@ router.post('/users/signup', async (req, res) => {
             password
         });
     } else {
-        const nombreUsuario = usuario.findOne({user: user});
+        const nombreUsuario = await usuario.findOne({user: user});
         if (nombreUsuario) {
             req.flash('error_msg', 'Usuario ya registrado');
             res.redirect('/users/signup');
@@ -60,7 +60,9 @@ router.post('/users/signup', async (req, res) => {
             password
         });
         await nuevoUsuario.save();
-        //req.flash('success_msg', 'Usuario registrado');
+        console.log('JIJIJIJ');
+        req.flash('success_msg', 'Usuario registrado');
+        console.log('JIJIJIJ2');
         res.redirect('/users/signin');
     }
 
