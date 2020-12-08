@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const usuario = require('../models/usuario');
+const User = require('../models/User');
 const { isAuthenticated } = require('../helpers/auth');
 const passport = require('passport');
 
 //Cliente
 router.get('/users/signin', (req, res) => {
-
     res.render('users/signin');
+});
+
+router.get('/principal/userPrincipal', (req, res) => {
+    res.render('principal/userPrincipal');
 });
 
 router.post('/users/signin', passport.authenticate('local', {
@@ -17,21 +20,12 @@ router.post('/users/signin', passport.authenticate('local', {
 }));
 
 //Registro
-router.get('/users/signup', async(req, res) => {
+router.get('/users/signup', (req, res) => {
     res.render('users/signup');
 });
 
-router.post('/users/signup', async(req, res) => {
-    const {
-        name,
-        lastName,
-        birth,
-        sex,
-        user,
-        email,
-        password
-    } = req.body;
-
+router.post('/users/signup', async (req, res) => {
+    const { name, lastName, birth, sex, user, email, password } = req.body;
     const errors = [];
     console.log(req.body)
 
@@ -47,31 +41,15 @@ router.post('/users/signup', async(req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('users/signup', {
-            errors,
-            name,
-            lastName,
-            birth,
-            sex,
-            user,
-            email,
-            password
-        });
+        res.render('users/signup', { errors, name, password });
     } else {
-        const nombreUsuario = await usuario.findOne({ email: email });
-        if (nombreUsuario) {
+        const emailUser = await User.findOne({ email: email });
+        if (emailUser) {
             req.flash('error_msg', 'Usuario ya registrado');
             res.redirect('/users/signup');
         }
-        const nuevoUsuario = new usuario({
-            name,
-            lastName,
-            birth,
-            sex,
-            user,
-            email,
-            password
-        });
+        const nuevoUsuario = new User({ name, lastName, birth, sex, user, email, password });
+        nuevoUsuario.password = await nuevoUsuario.encryptPassword(password);
         await nuevoUsuario.save();
         console.log('JIJIJIJ');
         req.flash('success_msg', 'Usuario registrado');
