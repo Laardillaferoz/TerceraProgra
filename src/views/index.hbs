@@ -1,6 +1,41 @@
 <div class="jumbotron-mt-4">
-    <h1 class="display-4"> SportStore</h1>
-    <p class="lead">Bienvenido a la tienda deportiva virtual<p>
-    <hr class="my-4">
-    <p>Inicie su sesión y disfrute una experiencia de compras única, todos los artículos deportivos que desee estan aquí</p>
+    <h1 class="display-1 text-center" style="color:crimson;">
+        ~SportStore~
+    </h1>
+    <p class=" lead text-center" style=" font-size:23px;">
+        Bienvenido a la tienda deportiva virtual
+    <p>
+        <hr class="my-3">
+    <p class="card border-primary mb-3 h2 text-center" style=" font-size:20px; ">
+        ¡Inicie su sesión y disfrute una experiencia de compras única, todos los artículos deportivos que desee estan
+        aquí!
+    </p>
+
+    <form action="/users/signin" method="POST">
+        <div class="form-group">
+            <center><button type="submit" class="btn btn-primary btn-block"
+                    style=" height:60px; width:300px; font-size:25px;">
+                    Cliente
+                </button>
+            </center>
+        </div>
+    </form>
+
+    <form action="/users/signup" method="POST">
+    <div class="form-group">
+        <center><button type="submit" class="btn btn-primary btn-block"
+                style=" height:60px; width:300px; font-size:25px;">
+                Administrador
+            </button>
+        </center>
+    </div>
+    </form>
+
+    <div class="form-group">
+        <center><button type="submit" class="btn btn-primary btn-block"
+                style=" height:60px; width:300px; font-size:25px;">
+                Nuevo cliente
+            </button>
+        </center>
+    </div>
 </div>

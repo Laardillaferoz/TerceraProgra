@@ -1,6 +1,6 @@
-const express = require ('express');
+const express = require('express');
 const path = require('path');
-const exphbs = require ('express-handlebars');
+const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -13,16 +13,16 @@ require('./database');
 //Settings
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs ({
+app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
-    extname:'.hbs'
+    extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
 
 //Middlewares
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'mysecretapp',
@@ -45,12 +45,13 @@ app.use((req, res, next) => {
 //Routes
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
+//app.use(require('./routes/admins'));
 
 //Static Files
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Server is listenning
-app.listen(app.get('port'), () =>{
-console.log('CONECTÓ', app.get('port'))
+app.listen(app.get('port'), () => {
+    console.log('CONECTÓ', app.get('port'))
 });

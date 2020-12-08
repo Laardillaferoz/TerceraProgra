@@ -7,11 +7,15 @@ router.get('/users/signin', (req, res) => {
     res.render('users/signin');
 });
 
-router.get('/users/signup', async (req, res) => {
+router.post('/users/signin', async(req, res) => {
+    res.redirect('/users/signin');
+});
+
+router.get('/users/signup', async(req, res) => {
     res.render('users/signup');
 });
 
-router.post('/users/signup', async (req, res) => {
+router.post('/users/signup', async(req, res) => {
     const {
         name,
         lastName,
@@ -25,14 +29,14 @@ router.post('/users/signup', async (req, res) => {
     console.log(req.body)
 
     if (user.length <= 0) {
-        errors.push({text: "Por favor, ingrese un nombre de usuario"})
+        errors.push({ text: "Por favor, ingrese un nombre de usuario" })
     }
     if (password.length <= 0) {
-        errors.push({text: "Por favor, ingrese una contraseña"})
+        errors.push({ text: "Por favor, ingrese una contraseña" })
     }
 
     if (password.length < 4) {
-        errors.push({text: "La contraseña debe tener un mínimo de 4 caracteres"});
+        errors.push({ text: "La contraseña debe tener un mínimo de 4 caracteres" });
     }
 
     if (errors.length > 0) {
@@ -46,7 +50,7 @@ router.post('/users/signup', async (req, res) => {
             password
         });
     } else {
-        const nombreUsuario = await usuario.findOne({user: user});
+        const nombreUsuario = await usuario.findOne({ user: user });
         if (nombreUsuario) {
             req.flash('error_msg', 'Usuario ya registrado');
             res.redirect('/users/signup');
