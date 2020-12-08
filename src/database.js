@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 
 mongoose.set("useFindAndModify", false);
 mongoose.connect(
-  'mongodb+srv://Amanda:menudo@proyectobd2.m0wen.mongodb.net/<ProyectoBD2>?retryWrites=true&w=majority',
-    {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-    }
-  )
-  .then(db => console.log("Conectó mongo"))
-  .catch(err => console.error(err));
+        'mongodb+srv://Manu:manu@cluster0.vubew.mongodb.net/P3?retryWrites=true&w=majority', {
+            useCreateIndex: true,
+            useNewUrlParser: true,
+        }
+    )
+    .then(db => console.log("Conectó mongo"))
+    .catch(err => console.error(err));

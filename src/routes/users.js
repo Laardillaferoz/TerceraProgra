@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const usuario = require('../models/usuario');
+const { isAuthenticated } = require('../helpers/auth');
+const passport = require('passport');
 
-
+//Cliente
 router.get('/users/signin', (req, res) => {
+
     res.render('users/signin');
 });
 
-router.post('/users/signin', async(req, res) => {
-    res.redirect('/users/signin');
-});
+router.post('/users/signin', passport.authenticate('local', {
+    successRedirect: '/principal/userPrincipal',
+    failureRedirect: '/users/signin',
+    failureFlash: true
+}));
 
+//Registro
 router.get('/users/signup', async(req, res) => {
     res.render('users/signup');
 });
@@ -22,14 +28,15 @@ router.post('/users/signup', async(req, res) => {
         birth,
         sex,
         user,
+        email,
         password
     } = req.body;
 
     const errors = [];
     console.log(req.body)
 
-    if (user.length <= 0) {
-        errors.push({ text: "Por favor, ingrese un nombre de usuario" })
+    if (email.length <= 0) {
+        errors.push({ text: "Por favor, ingrese su email" })
     }
     if (password.length <= 0) {
         errors.push({ text: "Por favor, ingrese una contraseña" })
@@ -47,10 +54,11 @@ router.post('/users/signup', async(req, res) => {
             birth,
             sex,
             user,
+            email,
             password
         });
     } else {
-        const nombreUsuario = await usuario.findOne({ user: user });
+        const nombreUsuario = await usuario.findOne({ email: email });
         if (nombreUsuario) {
             req.flash('error_msg', 'Usuario ya registrado');
             res.redirect('/users/signup');
@@ -61,6 +69,7 @@ router.post('/users/signup', async(req, res) => {
             birth,
             sex,
             user,
+            email,
             password
         });
         await nuevoUsuario.save();
