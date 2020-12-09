@@ -43,12 +43,12 @@ router.post('/users/signup', async (req, res) => {
     if (errors.length > 0) {
         res.render('users/signup', { errors, name, password });
     } else {
-        const emailUser = await User.findOne({ email: email });
+        const em = await User.findOne({ email: email });
         if (emailUser) {
             req.flash('error_msg', 'Usuario ya registrado');
             res.redirect('/users/signup');
         }
-        const nuevoUsuario = new User({ name, lastName, birth, sex, user, email, password });
+        const nuevaCompra = new User({ name, lastName, birth, sex, user, email, password });
         nuevoUsuario.password = await nuevoUsuario.encryptPassword(password);
         await nuevoUsuario.save();
         console.log('JIJIJIJ');
