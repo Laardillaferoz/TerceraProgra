@@ -38,9 +38,9 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 //Global Variables
-app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
@@ -59,6 +59,9 @@ app.use(require('./routes/compras'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res) => {
+    res.render("404");
+});
 
 
 //Server is listenning

@@ -16,14 +16,13 @@
 
 <body>
 
-    <p>Navegacion</p>
+    {{> navigation }}
+
     <main class="container">
         {{> messages}}
         {{> errors}}
         {{{body}}}
     </main>
-
-    <p>Footer</p>
 
     <!--SCRIPTS-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

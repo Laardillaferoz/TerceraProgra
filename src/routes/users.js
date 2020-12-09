@@ -9,7 +9,7 @@ router.get('/users/signin', (req, res) => {
     res.render('users/signin');
 });
 
-router.get('/principal/userPrincipal', (req, res) => {
+router.get('/principal/userPrincipal', isAuthenticated, (req, res) => {
     res.render('principal/userPrincipal');
 });
 
@@ -57,6 +57,13 @@ router.post('/users/signup', async (req, res) => {
         res.redirect('/users/signin');
     }
 
+});
+
+router.get('users/logout', (req, res) => {
+    req.logout();
+    req.session = null;
+    req.flash("success_msg", "Has cerrado sesion.");
+    res.redirect('/');
 });
 
 module.exports = router;
