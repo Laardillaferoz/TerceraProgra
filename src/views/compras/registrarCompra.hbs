@@ -6,24 +6,31 @@
                     ~ SportStore ~
                 </div>
                 <div class="card-header font-italic text-info">
-                    Registrar Compra 
+                    Registrar Compra
                 </div>
             </div>
             <div class="card-body">
                 <form action="/compras/registrarCompra" method="POST">
                     <div class="form-group">
-                        <input type="producto" name="ProductoCompra" class="form-control" placeholder="Producto" >
+                        <input type="producto" name="ProductoCompra" class="form-control" placeholder="Producto"></div>
+                        <div class="form-group">
+                            <input type="cantidad" name="Cantidad" class="form-control" placeholder="Cantidad"></div>
+                            <div class="form-group">
+                                <button type="AgregarProductos" class="btn btn-primary btn-block">
+                                    Agregar producto
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <center>
+                                    <button class="btn btn-primary btn-block" style=" background-color:darkslategrey; height:60px; width:300px; font-size:25px;">
+                                        <a href="/mostrar/carrito">
+                                            Carrito
+                                        </a>
+                                    </button>
+                                </center>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="cantidad" name="Cantidad" class="form-control" placeholder="Cantidad">
-                    </div>
-                    <div class="form-group">
-                        <button type="AgregarProductos" class="btn btn-primary btn-block">
-                            Agregar producto
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
