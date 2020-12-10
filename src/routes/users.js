@@ -24,7 +24,7 @@ router.get('/users/signup', (req, res) => {
     res.render('users/signup');
 });
 
-router.post('/users/signup', async (req, res) => {
+router.post('/users/signup', async(req, res) => {
     const { name, lastName, birth, sex, user, email, password } = req.body;
     const errors = [];
     console.log(req.body)
@@ -43,12 +43,12 @@ router.post('/users/signup', async (req, res) => {
     if (errors.length > 0) {
         res.render('users/signup', { errors, name, password });
     } else {
-        const em = await User.findOne({ email: email });
+        const emailUser = await User.findOne({ email: email });
         if (emailUser) {
             req.flash('error_msg', 'Usuario ya registrado');
             res.redirect('/users/signup');
         }
-        const nuevaCompra = new User({ name, lastName, birth, sex, user, email, password });
+        const nuevoUsuario = new User({ name, lastName, birth, sex, user, email, password });
         nuevoUsuario.password = await nuevoUsuario.encryptPassword(password);
         await nuevoUsuario.save();
         console.log('JIJIJIJ');

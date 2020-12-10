@@ -19,7 +19,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
-    helpers: { json: function (context) { return JSON.stringify(context); } },
+    helpers: { json: function(context) { return JSON.stringify(context); } },
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
@@ -59,9 +59,6 @@ app.use(require('./routes/compras'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res) => {
-    res.render("404");
-});
 
 
 //Server is listenning
