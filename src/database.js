@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 mongoose.set("useFindAndModify", false);
 mongoose.connect(
-        'mongodb+srv://Manu:manu@cluster0.vubew.mongodb.net/P3?retryWrites=true&w=majority', {
+        'mongodb+srv://Amanda:menudo@cluster0.vubew.mongodb.net/P3?retryWrites=true&w=majority', {
             useCreateIndex: true,
             useNewUrlParser: true,
         }
