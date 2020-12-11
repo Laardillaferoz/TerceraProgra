@@ -8,21 +8,11 @@
             <div class="card">
                 <div class="card-body">
                     <form
-                        action="/compras/carritoVista" method="POST">
+                        action="/compras/finalizarCompra" method="POST">
                         <!--Campos de texto y botones -->
                         <button type="submit" class="btn btn-primary btn-block">
                             Finalizar compra
                         </button>
-                        <div class="form-group">
-                            <center>
-                                <button class="btn btn-primary btn-block" style=" background-color:rgb(10, 120, 209); height:60px; width:300px; font-size:25px;">
-                                    <a href="/mostrar/carrito">
-                                        Finalizar compra
-                                    </a>
-                                </button>
-                            </center>
-                        </div>
-
                     </form>
                 </div>
             </div>
@@ -37,14 +27,12 @@
     <!--Tabla que muestra los datos -->
 
     <div class="row">
-        {{#each Todos}}
+        {{#each ProductoComun}}
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Producto:
-                            {{ ProductoCompra }}</h6>
-                        <h6 class="card-title">Cantidad:
-                            {{ Cantidad }}
+                        <h6 class="card-title">Productos:
+                            {{ NombreArticulo }}</h6>
                         </h6>
                     </div>
                 </div>

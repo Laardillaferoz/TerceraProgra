@@ -1,22 +1,67 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
 const express = require('express');
 const router = express.Router();
 
-const ProductosCarrito = require('../models/compras');
-const ProductosDisponibles = require('../models/productoModel');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-router.get('/mostrar/precioFinal', (req, res) => {
+const productosDisponibles = require('../models/productoModel'); 
+const compra = require('../models/compras'); 
+
+router.get('/mostrar/finalizarCompra', (req, res) => {
     res.render('compras/finalizarCompra');
 });
 
+router.post('/compras/finalizarCompra', async (req, res) => {
+    const productosComun = await compras.aggregate([
+        {
+            "$lookup": {
+                "from": "productosDisponibles",
+                "localField": "NombreDisponible",
+                "foreignField": "NombreDisponible",
+                "as": "productosUno"
+            }
+        },
+        {
+            "$unwind": "$productosUno"
+        },
+        {
+            "$lookup": {
+                "from": "compra",
+                "localField": "ProductoCompra",
+                "foreignField": "ProductoCompra",
+                "as": "productosDos"
+            }
+        }, {
+            "$match": {
+                "idAerolinea": idAerolinea
+            }
+        }, {
+            "$group": {
+                "_id": "$vuelosAerolinea.idVuelo",
+                "precio": {
+                    "$sum": "$vuelosAerolinea.precio"
+                },
+                "Cantidad_Boletos_Vendidos": {
+                    "$sum": "$ordenBoletos_Boletos.cantidadBoleto"
+                }
+            }
+        }, {
+            "$addFields": {
+                "totalGananciaVuelo": {
+                    "$sum": {
+                        "$multiply": ["$precio", "$Cantidad_Boletos_Vendidos"]
+                    }
+                }
 
-router.post("/compras/finalizarCompra", async (req, res) => {
-    const { ProductosDisponibles} = req.body;
-    const Todos = await registroProductos.find({ });
-    console.log(Todos);
-    res.render('compras/finalizarCompra', { Todos });
+            }
+        }
+    ])
+    for (var x = 0; x < infoAerolinea.length; x++) {
+        var obj1 = infoAerolinea[x];
+        // res.send(obj1);
+        console.log(obj1);
+    }
+    res.render('compras/finalizarCompra', {obj1});
 });
 
 module.exports = router;
