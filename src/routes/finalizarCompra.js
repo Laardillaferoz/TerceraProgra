@@ -13,9 +13,12 @@ router.get('/mostrar/precioFinal', (req, res) => {
 });
 
 router.post('/compras/finalizarCompra', async (req, res) => {
+    
     const {compra} = req.body;
-    const productosComun = await compra.aggregate([
+    console.log(compra);
+    const productosComun = await productosDisponibles.aggregate([
         {
+            
             "$lookup": {
                 "from": "productosDisponibles",
                 "localField": "NombreDisponible",
@@ -36,8 +39,9 @@ router.post('/compras/finalizarCompra', async (req, res) => {
                 "productosUno": compra
             }
         }
+        
     ])
-    for (var x = 0; x < compras.length; x++) {
+    for (var x = 0; x < productosComun.length; x++) {
         var obj1 = compras[x];
         console.log(obj1);
     }
