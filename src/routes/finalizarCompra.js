@@ -6,6 +6,9 @@ const Schema = mongoose.Schema;
 
 const productosDisponibles = require('../models/productoModel');
 const compra = require('../models/compras');
+const compras = require('../models/compras');
+
+
 
 
 router.get('/mostrar/precioFinal', (req, res) => {
@@ -13,39 +16,19 @@ router.get('/mostrar/precioFinal', (req, res) => {
 });
 
 router.post('/compras/finalizarCompra', async (req, res) => {
+    var errors=[];
+    var compras = req.body.ProductoCompra;
     
-    const {compra} = req.body;
-    console.log(compra);
-    const productosComun = await productosDisponibles.aggregate([
-        {
-            
-            "$lookup": {
-                "from": "productosDisponibles",
-                "localField": "NombreArticulo",
-                "foreignField": "NombreArticulo",
-                "as": "productosDisponibles"
-            }
-        }, {
-            "$unwind": "$productosDisponibles"
-        }, {
-            "$lookup": {
-                "from": "compra",
-                "localField": "ProductoCompra",
-                "foreignField": "ProductoCompra",
-                "as": "productosDos"
-            }
-        }, {
-            "$match": {
-                "productosUno": compra
-            }
-        }
-        
-    ])
-    for (var x = 0; x < productosComun.length; x++) {
-        var obj1 = compras[x];
-        console.log(obj1);
-    }
-    res.render('compras/finalizarCompra', {obj1});
+    console.log(require('../index').compraActual);
+    
+    require('../index').compraActual=new compras;
+    
+    console.log(require('../index').compraActual);
+
+    await productosDisponibles.findOne({NombreProducto:producto}, async (res,req)=>{
+        console.log(require('../index').compraActual.NombreProducto=producto);
+    })
+    
 });
 
 module.exports = router;

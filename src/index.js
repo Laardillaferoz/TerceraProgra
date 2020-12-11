@@ -8,6 +8,7 @@ const passport = require('passport');
 
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+const compras = require('./models/compras');
 
 //Initializations
 const app = express();
@@ -49,6 +50,7 @@ app.use((req, res, next) => {
     res.locals.user = req.user || null;
     next();
 });
+module.exports.compraActual=new compras;
 
 //Routes
 app.use(require('./routes/index'));
