@@ -25,8 +25,16 @@ router.post('/compras/finalizarCompra', async (req, res) => {
     
     console.log(require('../index').compraActual);
 
-    await productosDisponibles.findOne({NombreProducto:producto}, async (res,req)=>{
-        console.log(require('../index').compraActual.NombreProducto=producto);
+    await productosDisponibles.findOne({NombreProducto:producto}, async (errors,prod)=>{
+        if(!prod){
+            errors.push({text:"mamando"});
+            res.render('./mostrar/precioFinal', {
+                errors
+            });
+        } else {
+            console.log(require('../index').compraActual.NombreProducto=producto);
+        }
+       
     })
     
 });
