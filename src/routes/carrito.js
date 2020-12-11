@@ -13,8 +13,8 @@ router.get('/mostrar/carrito', (req, res) => {
 
 router.post("/compras/carritoVista", async (req, res) => {
     const { ProductoCompra } = req.body;
-    const Todos = await registroProductos.find({ });
-    console.log(Todos);
+    const Todos = await registroProductos.find({ ProductoCompra: ProductoCompra});
+    //console.log(Todos);
     res.render('compras/carritoVista', { Todos });
 });
 

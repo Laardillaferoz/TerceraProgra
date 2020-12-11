@@ -21,12 +21,12 @@ router.post('/compras/finalizarCompra', async (req, res) => {
             
             "$lookup": {
                 "from": "productosDisponibles",
-                "localField": "NombreDisponible",
-                "foreignField": "NombreDisponible",
-                "as": "productosUno"
+                "localField": "NombreArticulo",
+                "foreignField": "NombreArticulo",
+                "as": "productosDisponibles"
             }
         }, {
-            "$unwind": "$productosUno"
+            "$unwind": "$productosDisponibles"
         }, {
             "$lookup": {
                 "from": "compra",

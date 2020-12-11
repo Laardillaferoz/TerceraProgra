@@ -6,4 +6,4 @@ const SchemaCompra = new Schema({
     Cantidad: {type: String, required:true },
 });
 
-module.exports=mongoose.model('compra', SchemaCompra);
+module.exports=mongoose.model('compras', SchemaCompra);
