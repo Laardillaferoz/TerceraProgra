@@ -5,11 +5,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productosDisponibles = require('../models/productoModel');
-const compra = require('../models/compras');
 const compras = require('../models/compras');
-
-
-
 
 router.get('/mostrar/precioFinal', (req, res) => {
     res.render('compras/finalizarCompra');
@@ -17,22 +13,20 @@ router.get('/mostrar/precioFinal', (req, res) => {
 
 router.post('/compras/finalizarCompra', async (req, res) => {
     var errors=[];
-    var compras = req.body.ProductoCompra;
+    var compra = req.body.ProductoCompra;
     
-    console.log(require('../index').compraActual);
+    require('../index').compraActual;
     
     require('../index').compraActual=new compras;
     
-    console.log(require('../index').compraActual);
-
-    await productosDisponibles.findOne({NombreProducto:producto}, async (errors,prod)=>{
+    await productosDisponibles.findOne({NombreProducto:compra}, async (errors,prod)=>{
         if(!prod){
             errors.push({text:"mamando"});
             res.render('./mostrar/precioFinal', {
                 errors
             });
         } else {
-            console.log(require('../index').compraActual.NombreProducto=producto);
+            console.log(require('../index').compraActual.NombreProducto=compras);
         }
        
     })
@@ -40,4 +34,3 @@ router.post('/compras/finalizarCompra', async (req, res) => {
 });
 
 module.exports = router;
-

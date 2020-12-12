@@ -9,6 +9,7 @@ const passport = require('passport');
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const compras = require('./models/compras');
+const productoModel = require('./models/productoModel');
 
 //Initializations
 const app = express();
@@ -51,6 +52,8 @@ app.use((req, res, next) => {
     next();
 });
 module.exports.compraActual=new compras;
+//module.exports.clienteActual=new User;
+module.exports.productosActuales=new productoModel;
 
 //Routes
 app.use(require('./routes/index'));
