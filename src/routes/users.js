@@ -59,10 +59,16 @@ router.post('/users/signup', async (req, res) => {
 
 });
 
-router.get('users/logout', (req, res) => {
+/**router.get('users/logout', (req, res) => {
     req.logout();
     req.session = null;
     req.flash("success_msg", "Has cerrado sesion.");
+    res.redirect('/');
+});*/
+
+router.get('users/logout', function (req, res) {
+    //req.logout();
+    req.session.destroy();
     res.redirect('/');
 });
 
