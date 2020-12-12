@@ -1,1 +1,84 @@
-<h1> Promociones </h1>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card text-center">
+            <div class="card border-primary mb-3 h2">
+                <div class="card-header font-italic text-danger">
+                    -SportStore-
+                </div>
+                <div class="card-header font-italic text-info">
+                    Registre una promoción
+                </div>
+            </div>
+            <div class="centrado">
+                <div class="card-body">
+                    <form action="/Products/Promocion" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="NombrePromocion"
+                                placeholder="Ingrese el nombre de la promoción" value="{{NombrePromocion}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Descripcion"
+                                placeholder="Ingrese la descripción de la promoción" value="{{Descripcion}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="NombreProducto"
+                                placeholder="Ingrese el nombre del producto al que aplica" value="{{NombreProducto}}">
+                        </div>
+                        <h6>
+                            A continuación puede escoger si el producto tendrá descuento o regalía, por favor solo
+                            llene
+                            la información pertinente. ¡Gracias!
+                        </h6>
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                        Descuento
+                                    </button>
+
+                                </h2>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" min="1" max="5" class="form-control" name="DescuentoRegalia"
+                                    placeholder="Ingrese el descuento a aplicar" value="{{DescuentoRegalia}}">
+                            </div>
+                        </div>
+                        <i class="fas fa-info-circle">El descuento debe incluir el símbolo de porcentaje</i>
+                        <br>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                    Regalía
+                                </button>
+                            </h2>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="DescuentoRegalia"
+                                    placeholder="Descripcion de la regalía" value="{{DescuentoRegalia}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h6>Fecha de Inicio de la Promoción</h6>
+                            <input type="date" class="form-control" name="FechaInicio"
+                                placeholder="Ingrese la fecha en la que empieza a aplicar la promoción"
+                                value="{{FechaInicio}}">
+                        </div>
+                        <div class="form-group">
+                            <h6>Fecha de Finalización de la Promoción</h6>
+                            <input type="date" class="form-control" name="FechaFin"
+                                placeholder="Ingrese la fecha en la que termina la promoción" value="{{FechaFin}}">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block bg-info">
+                                Registrar Promocion
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
