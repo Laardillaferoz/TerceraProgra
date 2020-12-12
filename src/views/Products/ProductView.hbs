@@ -2,10 +2,12 @@
     <div class="col-md-6 mx-auto">
         <div class="card text-center">
             <div class="card border-primary mb-3 h2">
-                <div class="card-header font-italic text-danger">
+                <div class="card-header font-italic text-danger"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     -SportStore-
                 </div>
-                <div class="card-header font-italic text-info">
+                <div class="card-header font-italic text-info"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     Registre un producto
                 </div>
             </div>
@@ -13,11 +15,15 @@
                 <div class="card-body">
                     <form action="/Products/ProductView" method="POST">
                         <div class="form-group">
+                            <i class="fas fa-signature"> Nombre del Artículo</i>
                             <input type="text" class="form-control" name="NombreArticulo"
-                                placeholder="Ingrese el nombre del artículo" value="{{NombreArticulo}}"></div>
+                                placeholder="Ingrese el nombre del artículo" value="{{NombreArticulo}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;"></div>
                         <div class="form-group">
+                            <i class="fas fa-copyright"> Marca</i>
                             <select class="form-select" aria-label="Default select example" name="Marca"
-                                value="{{Marca}}">
+                                value="{{Marca}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                                 <option value="">Marca</option>
                                 <option value="Adidas">Adidas</option>
                                 <option value="Asics">Asics</option>
@@ -53,31 +59,42 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <i class="fas fa-dollar-sign"> Precio</i>
                             <input type="text" class="form-control" name="Precio"
-                                placeholder="Ingrese el precio del producto" value="{{Precio}}"></div>
+                                placeholder="Ingrese el precio del producto" value="{{Precio}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;"></div>
                         <!--<div class="form-group">
                                 <input type="text" class="form-control" name="Deportes" placeholder="Ingrese el deporte que se usa" value="{{Deportes}}"></div>-->
                         <div class="form-group">
+                            <b>
+                                <i class="fab fa-old-republic"> ¿Es edición limitada?</i>
+                            </b>
                             <select class="form-select" aria-label="Default select example" name="Edicion"
-                                value="{{Edicion}}">
+                                value="{{Edicion}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                                 <option value="">Edición Limitada</option>
-                                <option value="Si">Si</option>
+                                <option value="Sí">Sí</option>
                                 <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-group">
+                            <i class="fas fa-list-ol"> Cantidad</i>
                             <input type="text" class="form-control" name="Inventario"
-                                placeholder="Unidades disponibles en inventario" value="{{Inventario}}"></div>
+                                placeholder="Unidades disponibles en inventario" value="{{Inventario}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;"></div>
                         <div class="form-group">
+                            <i class="fas fa-tshirt"> ¿Prenda? </i> <i class="fas fa-shopping-bag"> ¿Artículo?</i>
                             <select class="form-select" aria-label="Default select example" name="TipoProducto"
-                                value="{{TipoProducto}}">
+                                value="{{TipoProducto}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                                 <option value="">Prenda o artículo</option>
                                 <option value="Prenda">Prenda</option>
                                 <option value="Articulo">Artículo</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block bg-info">
+                            <button type="submit" class="btn btn-primary btn-block bg-info"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                                 Registrar Producto
                             </button>
                         </div>

@@ -2,23 +2,29 @@
     <div class="col-md-4 mx-auto">
         <div class="card mt-4 text-center">
             <div class="card border-primary mb-3 h2">
-                <div class="card-header font-italic text-danger">
+                <div class="card-header font-italic text-danger"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     ~ SportStore ~
                 </div>
-                <div class="card-header font-italic text-info">
+                <div class="card-header font-italic text-info"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     Cliente
                 </div>
             </div>
             <div class="card-body">
                 <form action="/users/signin" method="POST">
                     <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Email" autofocus>
+                        <i class="fas fa-at"> Correo electrónico</i>
+                        <input type="email" name="email" class="form-control" placeholder="Email" autofocus
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="Contraseña">
+                        <i class="fas fa-unlock-alt"> Contraseña</i>
+                        <input type="password" name="password" class="form-control" placeholder="Contraseña"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">
+                    <div class="form-group" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+                        <button type="submit" class="btn btn-primary btn-block bg-info">
                             Ingresar
                         </button>
                     </div>

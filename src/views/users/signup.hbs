@@ -2,27 +2,37 @@
     <div class="col-md-6 mx-auto">
         <div class="card text-center">
             <div class="card border-primary mb-3 h2">
-                <div class="card-header font-italic text-danger">
+                <div class="card-header font-italic text-danger"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     ~ SportStore ~
                 </div>
-                <div class="card-header font-italic text-info">
+                <div class="card-header font-italic text-info"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     Nuevo cliente
                 </div>
             </div>
             <div class="card-body">
                 <form action="/users/signup" method="POST">
                     <div class="form-group">
+                        <i class="fas fa-user"> Nombre</i>
                         <input type="text" class="form-control" name="name" placeholder="Ingrese su nombre"
-                            value="{{name}}"></div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="lastName" placeholder="Ingrese su apellido"
-                            value="{{lastName}}"></div>
-                    <div class="form-group">
-                        <input type="date" class="form-control" name="birth"
-                            placeholder="Ingrese su fecha de nacimiento" value="{{birth}}">
+                            value="{{name}}" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     </div>
                     <div class="form-group">
-                        <select class="form-select" aria-label="Default select example" name="sex" value="{{sex}}">
+                        <i class="fas fa-user-friends"> Apellido</i>
+                        <input type="text" class="form-control" name="lastName" placeholder="Ingrese su apellido"
+                            value="{{lastName}}"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;"></div>
+                    <div class="form-group">
+                        <i class="fas fa-calendar-alt"> Fecha de nacimiento</i>
+                        <input type="date" class="form-control" name="birth"
+                            placeholder="Ingrese su fecha de nacimiento" value="{{birth}}"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-venus-mars"> Género</i>
+                        <select class="form-select" aria-label="Default select example" name="sex" value="{{sex}}"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                             <option value="">Género</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
@@ -30,16 +40,23 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <i class="fas fa-user-tag"> Nombre de usuario</i>
                         <input type="text" class="form-control" name="user" placeholder="Ingrese su nombre de usuario"
-                            value="{{user}}"></div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}">
+                            value="{{user}}" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña"
-                            value="{{password}}"></div>
+                        <i class="fas fa-at"> Correo electrónico</i>
+                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+                    </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block bg-info">
+                        <i class="fas fa-unlock-alt"> Contraseña</i>
+                        <input type="password" class="form-control" name="password" placeholder="Ingrese su contraseña"
+                            value="{{password}}"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block bg-info"
+                            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                             Registrarse
                         </button>
                     </div>

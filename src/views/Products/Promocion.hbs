@@ -2,10 +2,12 @@
     <div class="col-md-6 mx-auto">
         <div class="card text-center">
             <div class="card border-primary mb-3 h2">
-                <div class="card-header font-italic text-danger">
+                <div class="card-header font-italic text-danger"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     -SportStore-
                 </div>
-                <div class="card-header font-italic text-info">
+                <div class="card-header font-italic text-info"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                     Registre una promoción
                 </div>
             </div>
@@ -13,28 +15,37 @@
                 <div class="card-body">
                     <form action="/Products/Promocion" method="POST">
                         <div class="form-group">
+                            <i class="fas fa-audio-description"></i> <i class="fas fa-percentage"> Nombre de la
+                                promoción</i>
+                            <i class="fas fa-tshirt"></i> <i class="fas fa-shopping-bag"></i>
                             <input type="text" class="form-control" name="NombrePromocion"
-                                placeholder="Ingrese el nombre de la promoción" value="{{NombrePromocion}}">
+                                placeholder="Ingrese el nombre de la promoción" value="{{NombrePromocion}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                         </div>
                         <div class="form-group">
+                            <i class="fas fa-file-alt"> Descripción de la promoción</i>
                             <input type="text" class="form-control" name="Descripcion"
-                                placeholder="Ingrese la descripción de la promoción" value="{{Descripcion}}">
+                                placeholder="Ingrese la descripción de la promoción" value="{{Descripcion}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                         </div>
                         <div class="form-group">
+                            <i class="fas fa-signature"> Nombre del producto</i>
                             <input type="text" class="form-control" name="NombreProducto"
-                                placeholder="Ingrese el nombre del producto al que aplica" value="{{NombreProducto}}">
+                                placeholder="Ingrese el nombre del producto al que aplica" value="{{NombreProducto}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                         </div>
-                        <h6>
+                        <b style="font-family: 'Times New Roman', Times, serif;">
                             A continuación puede escoger si el producto tendrá descuento o regalía, por favor solo
                             llene
                             la información pertinente. ¡Gracias!
-                        </h6>
+                        </b>
                         <div class="accordion accordion-flush" id="accordionFlushExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingOne">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                        aria-controls="flush-collapseOne">
+                                        aria-controls="flush-collapseOne"
+                                        style="font-family: 'Times New Roman', Times, serif;">
                                         Descuento
                                     </button>
 
@@ -42,37 +53,43 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" min="1" max="5" class="form-control" name="DescuentoRegalia"
-                                    placeholder="Ingrese el descuento a aplicar" value="{{DescuentoRegalia}}">
+                                    placeholder="Ingrese el descuento a aplicar" value="{{DescuentoRegalia}}"
+                                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                             </div>
                         </div>
-                        <i class="fas fa-info-circle">El descuento debe incluir el símbolo de porcentaje</i>
+                        <i class="fas fa-info-circle"> El descuento debe incluir el símbolo de porcentaje</i>
                         <br>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                    aria-controls="flush-collapseTwo">
+                                    aria-controls="flush-collapseTwo"
+                                    style="font-family: 'Times New Roman', Times, serif;">
                                     Regalía
                                 </button>
                             </h2>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="DescuentoRegalia"
-                                    placeholder="Descripcion de la regalía" value="{{DescuentoRegalia}}">
+                                    placeholder="Descripcion de la regalía" value="{{DescuentoRegalia}}"
+                                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                             </div>
                         </div>
                         <div class="form-group">
-                            <h6>Fecha de Inicio de la Promoción</h6>
+                            <i class="fas fa-calendar-alt"> Fecha de Inicio de la Promoción</i>
                             <input type="date" class="form-control" name="FechaInicio"
                                 placeholder="Ingrese la fecha en la que empieza a aplicar la promoción"
-                                value="{{FechaInicio}}">
+                                value="{{FechaInicio}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                         </div>
                         <div class="form-group">
-                            <h6>Fecha de Finalización de la Promoción</h6>
+                            <i class="fas fa-calendar-alt"> Fecha de Inicio de la Promoción</i>
                             <input type="date" class="form-control" name="FechaFin"
-                                placeholder="Ingrese la fecha en la que termina la promoción" value="{{FechaFin}}">
+                                placeholder="Ingrese la fecha en la que termina la promoción" value="{{FechaFin}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block bg-info">
+                            <button type="submit" class="btn btn-primary btn-block bg-info"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                                 Registrar Promocion
                             </button>
                         </div>
