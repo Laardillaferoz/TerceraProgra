@@ -20,11 +20,10 @@ router.post('/compras/registrarCompra', async (req, res) => {
 
     console.log('hola1');
     if (! ProductoCompra) {
-        console.log('ella');
+        
         req.flash('error_msg' , "Ingrese el producto");
     }
     if (! Cantidad) {
-        console.log('NO me');
         errors.push({text:"You must enter the quantity"});
     }
     //if (errors.length > 0) {
@@ -32,11 +31,11 @@ router.post('/compras/registrarCompra', async (req, res) => {
      //   res.render("./compras/registrarCompra", {errors});
     //}
      else {
-        console.log('aquo');
+        
         var productosD = require('../index').compraActual.ProductoCompra;
 
         await productosDisponibles.findOne({NombreArticulo: ProductoCompra}, async (err, found) => {
-            console.log('No esta');
+            
             if (!found) {
                 errors.push({text:"Producto no exite"});
                 //req.flash('error_msg' , "El producto NO existe");
@@ -53,9 +52,9 @@ router.post('/compras/registrarCompra', async (req, res) => {
                     require('../index').compraActual.products.push({ProductoCompra:ProductoCompra,Cantidad:Cantidad,unitPrice:found.precio}); 
                     require('../index').compraActual.precioFinal= (parseInt(Actual)+parseInt(precio));
                     //require('../index').compraActual.Precio = (parseInt(compraActual) + parseInt(Precio));
-                    console.log('hola');
+                    
                     success.push({text:"Se añadio producto"});
-                    console.log('aquiajfbdak');
+                    
                     //req.flash('success_msg', 'Producto registrado');
                     console.log(require('../index').compraActual);
                     console.log(require('../index').compraActual.products.length)
@@ -65,7 +64,7 @@ router.post('/compras/registrarCompra', async (req, res) => {
             }
         })
     }
-})
+});
 
 router.post('/compras/finalCompra',async(req,res)=>{
     var success=[];
@@ -97,7 +96,7 @@ router.post('/compras/finalCompra',async(req,res)=>{
     success.push({text:'Se ha registrado el producto, el precio final es: '+require('../index').compraActual.precioFinal});
     res.render('./index',{success})
 })
- router.get('/compras/finalCompra',(req,res)=>{
-     res.render('compras/registrarCompra')
- })
+// router.get('/compras/finalCompra',(req,res)=>{
+//     res.render('compras/registrarCompra')
+//})
 module.exports = router;
