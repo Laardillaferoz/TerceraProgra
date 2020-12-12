@@ -21,7 +21,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
-    helpers: { json: function(context) { return JSON.stringify(context); } },
+    helpers: { json: function (context) { return JSON.stringify(context); } },
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
@@ -51,9 +51,9 @@ app.use((req, res, next) => {
     res.locals.user = req.user || null;
     next();
 });
-module.exports.compraActual=new compras;
+module.exports.compraActual = new compras;
 //module.exports.clienteActual=new User;
-module.exports.productosActuales=new productoModel;
+module.exports.productosActuales = new productoModel;
 
 //Routes
 app.use(require('./routes/index'));

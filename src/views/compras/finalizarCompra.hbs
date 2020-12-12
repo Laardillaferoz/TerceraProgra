@@ -1,14 +1,12 @@
 <div class="container">
     <h1 class="text-center">CARRITO DE COMPRAS
     </h1>
-    <div
-        class="row">
+    <div class="row">
         <!--Formulario -->
         <div class="col -md-5">
             <div class="card">
                 <div class="card-body">
-                    <form
-                        action="/compras/finalizarCompra" method="POST">
+                    <form action="/compras/finalizarCompra" method="POST">
                         <!--Campos de texto y botones -->
                         <button type="submit" class="btn btn-primary btn-block">
                             Finalizar compra
@@ -19,24 +17,24 @@
         </div>
     </div>
     <hr>
-        <p></p>
-        <p></p>
-        <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
     </hr>
     <h1>Productos agregados</h1>
     <!--Tabla que muestra los datos -->
 
     <div class="row">
         {{#each obj1}}
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title">Productos:
-                            {{ NombreArticulo }}</h6>
-                        </h6>
-                    </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Productos:
+                        {{ NombreArticulo }}</h6>
+                    </h6>
                 </div>
             </div>
         </div>
+    </div>
     {{/each}}
 </div>

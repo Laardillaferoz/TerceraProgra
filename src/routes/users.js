@@ -24,7 +24,7 @@ router.get('/users/signup', (req, res) => {
     res.render('users/signup');
 });
 
-router.post('/users/signup', async(req, res) => {
+router.post('/users/signup', async (req, res) => {
     const { name, lastName, birth, sex, user, email, password } = req.body;
     const errors = [];
     console.log(req.body)

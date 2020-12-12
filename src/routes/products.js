@@ -27,22 +27,22 @@ router.post('/Products/ProductView', async (req, res) => {
     console.log(req.body)
 
     if (NombreArticulo.length <= 0) {
-        errors.push({text: "Por favor, ingrese un nombre del articulo"})
+        errors.push({ text: "Por favor, ingrese un nombre del articulo" })
     }
     if (Marca.length <= 0) {
-        errors.push({text: "Por favor, ingrese una Marca"})
+        errors.push({ text: "Por favor, ingrese una Marca" })
     }
     if (Precio.length <= 0) {
-        errors.push({text: "Por favor, ingrese un Precio"})
+        errors.push({ text: "Por favor, ingrese un Precio" })
     }
     if (Edicion.length <= 0) {
-        errors.push({text: "Por favor, ingrese una Edicion"})
+        errors.push({ text: "Por favor, ingrese una Edicion" })
     }
     if (Inventario.length <= 0) {
-        errors.push({text: "Por favor, ingrese un Cantidad en inventario"})
+        errors.push({ text: "Por favor, ingrese un Cantidad en inventario" })
     }
     if (TipoProducto.length <= 0) {
-        errors.push({text: "Por favor, ingrese un tipo de producto"})
+        errors.push({ text: "Por favor, ingrese un tipo de producto" })
     }
     /*
     if (TipoProducto.length < 4) {
@@ -60,38 +60,38 @@ router.post('/Products/ProductView', async (req, res) => {
             TipoProducto
         });
     } else {
-        const BusProducto = await producto.findOne({NombreArticulo: NombreArticulo});
+        const BusProducto = await producto.findOne({ NombreArticulo: NombreArticulo });
         if (BusProducto) {
             req.flash('error_msg', 'Producto ya registrado');
             res.redirect('/Products/ProductView');
-        }else{
-            ObjetoProducto.NombreArticulo=NombreArticulo;
-            ObjetoProducto.Marca=Marca;
-            ObjetoProducto.Precio=Precio;
-            ObjetoProducto.Edicion=Edicion;
-            ObjetoProducto.Inventario=Inventario;
-            ObjetoProducto.Imagen=Imagen;
-            ObjetoProducto.TipoProducto=TipoProducto;
-            res.render('Products/UsoDeportes',{ ObjetoProducto });
+        } else {
+            ObjetoProducto.NombreArticulo = NombreArticulo;
+            ObjetoProducto.Marca = Marca;
+            ObjetoProducto.Precio = Precio;
+            ObjetoProducto.Edicion = Edicion;
+            ObjetoProducto.Inventario = Inventario;
+            ObjetoProducto.Imagen = Imagen;
+            ObjetoProducto.TipoProducto = TipoProducto;
+            res.render('Products/UsoDeportes', { ObjetoProducto });
         }
     }
 });
 
-router.get('/Products/useSports', (req,res)=>{
+router.get('/Products/useSports', (req, res) => {
     res.render('Products/UsoDeportes');
 });
 
-router.post('/Products/UsoDeportes',async(req,res)=>{
-    const {Deportes}=req.body;
-    ObjetoProducto.Deportes.push({Deportes});
+router.post('/Products/UsoDeportes', async (req, res) => {
+    const { Deportes } = req.body;
+    ObjetoProducto.Deportes.push({ Deportes });
     res.render('Products/UsoDeportes');
 });
 
-router.get('/Products/TerminaProducto',(req,res)=>{
+router.get('/Products/TerminaProducto', (req, res) => {
     res.render('Products/ProductView');
 })
 
-router.post('/Products/TerminaProducto',async(req,res)=>{
+router.post('/Products/TerminaProducto', async (req, res) => {
     await ObjetoProducto.save();
     console.log('JIJIJIJ');
     req.flash('success_msg', 'Producto registrado');

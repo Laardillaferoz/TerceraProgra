@@ -12,25 +12,25 @@ router.get('/mostrar/precioFinal', (req, res) => {
 });
 
 router.post('/compras/finalizarCompra', async (req, res) => {
-    var errors=[];
+    var errors = [];
     var compra = req.body.ProductoCompra;
-    
+
     require('../index').compraActual;
-    
-    require('../index').compraActual=new compras;
-    
-    await productosDisponibles.findOne({NombreProducto:compra}, async (errors,prod)=>{
-        if(!prod){
-            errors.push({text:"mamando"});
+
+    require('../index').compraActual = new compras;
+
+    await productosDisponibles.findOne({ NombreProducto: compra }, async (errors, prod) => {
+        if (!prod) {
+            errors.push({ text: "mamando" });
             res.render('./mostrar/precioFinal', {
                 errors
             });
         } else {
-            console.log(require('../index').compraActual.NombreProducto=compras);
+            console.log(require('../index').compraActual.NombreProducto = compras);
         }
-       
+
     })
-    
+
 });
 
 module.exports = router;
