@@ -60,6 +60,7 @@ app.use(require('./routes/index'));
 app.use(require('./routes/users'));
 app.use(require('./routes/admins'));
 app.use(require('./routes/products'));
+app.use(require('./routes/promocion'));
 app.use(require('./routes/compras'));
 app.use(require('./routes/carrito'));
 app.use(require('./routes/finalizarCompra'));

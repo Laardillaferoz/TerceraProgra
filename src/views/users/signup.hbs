@@ -18,10 +18,11 @@
                         <input type="text" class="form-control" name="lastName" placeholder="Ingrese su apellido"
                             value="{{lastName}}"></div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="birth"
-                            placeholder="Ingrese su fecha de nacimiento (YYYY-MM-DD)" value="{{birth}}"></div>
+                        <input type="date" class="form-control" name="birth"
+                            placeholder="Ingrese su fecha de nacimiento" value="{{birth}}">
+                    </div>
                     <div class="form-group">
-                        <select class="ui dropdown" name="sex" value="{{sex}}">
+                        <select class="form-select" aria-label="Default select example" name="sex" value="{{sex}}">
                             <option value="">Género</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>

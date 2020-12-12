@@ -9,44 +9,81 @@
                     Registre un producto
                 </div>
             </div>
-            <div class="card-body">
-                <form action="/Products/ProductView" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="NombreArticulo" placeholder="Ingrese el nombre del artículo" value="{{NombreArticulo}}"></div>
+            <div class="centrado">
+                <div class="card-body">
+                    <form action="/Products/ProductView" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="Marca" placeholder="Ingrese la marca" value="{{Marca}}"></div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="Precio" placeholder="Ingrese el precio del producto" value="{{Precio}}"></div>
-                                <!--<div class="form-group">
-                                <input type="text" class="form-control" name="Deportes" placeholder="Ingrese el deporte que se usa" value="{{Deportes}}"></div>-->
-                                <div class="form-group">
-                                    <select class="ui dropdown" name="Edicion" value="{{Edicion}}">
-                                        <option value="">Edición Limitada</option>
-                                        <option value="Si">Si</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="Inventario" placeholder="Unidades disponibles en inventario" value="{{Inventario}}"></div>
-                                    <div class="form-group">
-                                    <select class="ui dropdown" name="TipoProducto" value="{{TipoProducto}}">
-                                        <option value="">Prenda o artículo</option>
-                                        <option value="Prenda">Prenda</option>
-                                        <option value="Articulo">Artículo</option>
-                                    </select>
-                                    </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block bg-info">
-                                                Registrar Producto
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="NombreArticulo"
+                                placeholder="Ingrese el nombre del artículo" value="{{NombreArticulo}}"></div>
+                        <div class="form-group">
+                            <select class="form-select" aria-label="Default select example" name="Marca"
+                                value="{{Marca}}">
+                                <option value="">Marca</option>
+                                <option value="Adidas">Adidas</option>
+                                <option value="Asics">Asics</option>
+                                <option value="Billa Bong">Billa Bong</option>
+                                <option value="Callaway">Callaway</option>
+                                <option value="Converse">Converse</option>
+                                <option value="DC">DC</option>
+                                <option value="Diadora">Diadora</option>
+                                <option value="Everlast">Everlast</option>
+                                <option value="Fila">Fila</option>
+                                <option value="Flash">Flash</option>
+                                <option value="Fox">Fox</option>
+                                <option value="Kappa">Kappa</option>
+                                <option value="Le Coq Sportif">Le Coq Sportif</option>
+                                <option value="Lotto">Lotto</option>
+                                <option value="Montagne">Montagne</option>
+                                <option value="New Balance">New Balance</option>
+                                <option value="Nike">Nike</option>
+                                <option value="ONeill">ONeill</option>
+                                <option value="Puma">Puma</option>
+                                <option value="Quick Silver">Quick Silver</option>
+                                <option value="Rebook">Rebook</option>
+                                <option value="Reef">Reef</option>
+                                <option value="Roxy">Roxy</option>
+                                <option value="Salomon">Salomon</option>
+                                <option value="Speedo">Speedo</option>
+                                <option value="Umbro">Umbro</option>
+                                <option value="Under Armour">Under Armour</option>
+                                <option value="Uniqlo">Uniqlo</option>
+                                <option value="Vans">Vans</option>
+                                <option value="Venum">Venum</option>
+                                <option value="Wilson">Wilson</option>
+                            </select>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Precio"
+                                placeholder="Ingrese el precio del producto" value="{{Precio}}"></div>
+                        <!--<div class="form-group">
+                                <input type="text" class="form-control" name="Deportes" placeholder="Ingrese el deporte que se usa" value="{{Deportes}}"></div>-->
+                        <div class="form-group">
+                            <select class="form-select" aria-label="Default select example" name="Edicion"
+                                value="{{Edicion}}">
+                                <option value="">Edición Limitada</option>
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="Inventario"
+                                placeholder="Unidades disponibles en inventario" value="{{Inventario}}"></div>
+                        <div class="form-group">
+                            <select class="form-select" aria-label="Default select example" name="TipoProducto"
+                                value="{{TipoProducto}}">
+                                <option value="">Prenda o artículo</option>
+                                <option value="Prenda">Prenda</option>
+                                <option value="Articulo">Artículo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block bg-info">
+                                Registrar Producto
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div></div></div>
+</div>

@@ -13,7 +13,8 @@
                 <form action="/Products/UsoDeportes" method="POST">
                     <div class="form-group">
                         <div class="form-group">
-                            <select class="ui dropdown" name="Deportes" value="{{Deportes}}">
+                            <select class="form-select" aria-label="Default select example" name="Deportes"
+                                value="{{Deportes}}">
                                 <option value="">Elija Deporte</option>
                                 <option value="Atletismo">Atletismo</option>
                                 <option value="Baloncesto">Baloncesto</option>
@@ -30,13 +31,12 @@
                                 Añadir deporte
                             </button>
                         </div>
-                    </form>
-                    <form action="/Products/TerminaProducto" method="POST">
-                        <button type="submit" class="btn btn-primary btn-block bg-info">
-                            Añadir Producto
-                        </button>
-                    </form>>
-                </div>
+                </form>
+                <form action="/Products/TerminaProducto" method="POST">
+                    <button type="submit" class="btn btn-primary btn-block bg-info">
+                        Añadir Producto
+                    </button>
+                </form>
             </div>
         </div>
     </div>
