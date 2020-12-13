@@ -1,15 +1,27 @@
 <div class="container">
-    <h1 class="text-center">CARRITO DE COMPRAS
-    </h1>
-    <div class="row">
+    <div class="card border-primary mb-3 h2" style="text-align: center;">
+        <div class="card-header font-italic text-danger"
+            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+            ~ SportStore ~
+        </div>
+        <div class="card-header font-italic text-info"
+            style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+            <i class="fas fa-file-invoice-dollar"></i>
+            Facturación de Compras de {{user.name}}
+            <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+    </div>
+    <div class="row" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
         <!--Formulario -->
         <div class="col -md-5">
             <div class="card">
                 <div class="card-body">
                     <form action="/compras/finalizarCompra" method="POST">
                         <!--Campos de texto y botones -->
-                        <button type="submit" class="btn btn-primary btn-block">
+                        <button type="submit" class="btn btn-primary btn-block" style="font-weight: bold;">
                             Finalizar compra
+                            <i class="fas fa-check"></i>
+                            <a href="/mostrar/precioFinal" style="color: aliceblue;"></a>
                         </button>
                     </form>
                 </div>
@@ -21,10 +33,35 @@
     <p></p>
     <p></p>
     </hr>
-    <h1>Productos agregados</h1>
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">Productos agregados
+    </h1>
     <!--Tabla que muestra los datos -->
 
-    <div class="row">
+
+    <br><br>
+    <div class="row" style="font-family: 'Times New Roman', Times, serif;">
+        <br><br>
+        {{#each obj1}}
+        <div class="col-md-3">
+            <div class="purchase">
+                <div class="body">
+                    <div class="card-body" style="border-radius: 6mm; background-color:#cfd8dc;">
+                        <p style="text-align: center;">
+                            <i class="fas fa-barcode"> Producto</i> <i class="fas fa-barcode"></i>
+                        </p>
+                        <p>
+                            <i class="fas fa-list-ol"> Cantidad: {{NombreArticulo}}</i>
+                        </p>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <br><br><br>
+
+    <!--<div class="row" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
         {{#each obj1}}
         <div class="col-md-3">
             <div class="card">
@@ -36,5 +73,5 @@
             </div>
         </div>
     </div>
-    {{/each}}
+    {{/each}}-->
 </div>

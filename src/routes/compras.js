@@ -96,9 +96,9 @@ router.post('/compras/finalCompra', async (req, res) => {
 //})
 
 
-router.get('/compras/historialdeCompras',async(req,res)=>{
-    var clienteHistoria=require('../index').clienteActual;
-    const comprasHist=await compras.find({cliente:clienteHistoria});
-    res.render('compras/historialdeCompras',{comprasHist});
+router.get('/compras/historialdeCompras', async (req, res) => {
+    var clienteHistoria = require('../index').clienteActual;
+    const comprasHist = await compras.find({ cliente: clienteHistoria });
+    res.render('compras/historialdeCompras', { comprasHist });
 })
 module.exports = router;

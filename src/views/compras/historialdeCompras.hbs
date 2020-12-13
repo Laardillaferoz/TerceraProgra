@@ -1,26 +1,37 @@
 <br><br>
-<h4>Purchases TECMarket</h4>
+<center>
+    <h4 style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">Historial de Compras de {{user.name}}
+    </h4>
+</center>
+
 <br><br>
-<div class="row">
+<div class="row" style="font-family: 'Times New Roman', Times, serif;">
     <br><br>
     {{#each comprasHist}}
     <div class="col-md-3">
         <div class="purchase">
             <div class="body">
-                <h5 class="clienteHistoria">
-                  Client:  {{cliente}}
+                <h5 class="clienteHistoria"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">
+                    Cliente: {{cliente}}
                 </h5>
-                <p>Products:</p>
-                {{#each products}}
-                    <p>Code: {{ProductoCompra}}</p>
-                    <p>Quantity: {{Cantidad}}</p>
-                    <p>Price: ₡ {{unitPrice}}</p>
-                    <br>
-                {{/each}}
-               
-                <p>Total price: {{precioFinal}}</p>
-               
-                
+                <div class="card-body" style="border-radius: 6mm; background-color:#cfd8dc;">
+                    <p style="text-align: center;">
+                        <i class="fas fa-barcode"> Detalle de la compra</i> <i class="fas fa-barcode"></i>
+                    </p>
+                    {{#each products}}
+                    <p>
+                        <i class="fas fa-shopping-bag"> Producto: {{ProductoCompra}}</i>
+                    </p>
+                    <p>
+                        <i class="fas fa-list-ol"> Cantidad: {{Cantidad}}</i>
+                    </p>
+                    <p>
+                        <i class="fas fa-dollar-sign"> Precio unitario: ₡ {{unitPrice}}</i>
+                    </p>
+                    {{/each}}
+                </div>
+                <p style="text-align: center; font-weight: bold;">Total: ₡ {{precioFinal}}</p>
                 <br><br>
             </div>
         </div>

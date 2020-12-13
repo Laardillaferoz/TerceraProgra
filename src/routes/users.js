@@ -16,42 +16,42 @@ router.get('/principal/userPrincipal', isAuthenticated, (req, res) => {
 });
 
 
-router.post('/users/signin', passport.authenticate('local'),async(req,res)=>{
+router.post('/users/signin', passport.authenticate('local'), async (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
 
     var errors = [];
 
-    var contrasena="";
+    var contrasena = "";
     var CorreoCliente;
 
-    await User.findOne({email:email},async(err,resp)=>{
-        if(err){
+    await User.findOne({ email: email }, async (err, resp) => {
+        if (err) {
             console.log(err);
         }
-        if(resp){
-            CorreoCliente=resp.email;
-            contrasena=resp.password;
+        if (resp) {
+            CorreoCliente = resp.email;
+            contrasena = resp.password;
         }
     })
 
-    await bcrypt.compare(password,contrasena,async(err,resp)=>{
-        if(err){
+    await bcrypt.compare(password, contrasena, async (err, resp) => {
+        if (err) {
             console.log(err);
         }
-        if(contrasena==""){
-            errors.push({text:"No se encuentra el usuario"});
-            res.render("./users/signin",{ errors })
+        if (contrasena == "") {
+            errors.push({ text: "No se encuentra el usuario" });
+            res.render("./users/signin", { errors })
             return;
         }
 
-        if(resp){
-            require('../index').clienteActual=CorreoCliente;
+        if (resp) {
+            require('../index').clienteActual = CorreoCliente;
             //require('../index').clienteActual=CorreoCliente;
             res.redirect("/principal/userPrincipal");
-        }else{
-            errors.push({text:"Contraseña Incorrecta"});
-            res.render("./users/signin",{ errors })
+        } else {
+            errors.push({ text: "Contraseña Incorrecta" });
+            res.render("./users/signin", { errors })
         }
     })
 
