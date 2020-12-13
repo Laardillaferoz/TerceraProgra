@@ -5,6 +5,9 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+
 
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
@@ -30,6 +33,11 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 //Middlewares
+app.use(multer({
+    dest: path.join(__dirname,'public/uploads')
+}).single('image'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session({

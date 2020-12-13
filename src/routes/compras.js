@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/compras/registrarCompra', (req, res) => {
     res.render('compras/registrarCompra');
 });
-
+require('../index').compraActual = new compras;
 router.post('/compras/registrarCompra', async (req, res) => {
     var ProductoCompra = req.body.ProductoCompra;
     var Cantidad = req.body.Cantidad;
@@ -15,7 +15,7 @@ router.post('/compras/registrarCompra', async (req, res) => {
     var errors = [];
     var success = [];
     console.log(require('../index').compraActual);
-    require('../index').compraActual = new compras;
+    //require('../index').compraActual = new compras;
     console.log(require('../index').compraActual);
 
     console.log('hola1');
@@ -43,8 +43,16 @@ router.post('/compras/registrarCompra', async (req, res) => {
                 } else {
                     var Actual = require('../index').compraActual.precioFinal;
                     var precio = (parseInt(found.Precio) * parseInt(Cantidad));
+                    
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
 
-                    require('../index').compraActual.products.push({ ProductoCompra: ProductoCompra, Cantidad: Cantidad, unitPrice: found.Precio });
+                    today = dd + '/' + mm + '/' + yyyy;
+                    
+
+                    require('../index').compraActual.products.push({ ProductoCompra: ProductoCompra, Cantidad: Cantidad, unitPrice: found.Precio,FechaCompra:today });
                     require('../index').compraActual.precioFinal = (parseInt(Actual) + parseInt(precio));
                     //require('../index').compraActual.Precio = (parseInt(compraActual) + parseInt(Precio));
 
@@ -90,6 +98,8 @@ router.post('/compras/finalCompra', async (req, res) => {
     }
     success.push({ text: 'Se ha registrado el producto, el precio final es: ' + require('../index').compraActual.precioFinal });
     res.render('./index', { success })
+    delete require('../index').compraActual;
+    require('../index').compraActual = new compras;
 })
 // router.get('/compras/finalCompra',(req,res)=>{
 //     res.render('compras/registrarCompra')

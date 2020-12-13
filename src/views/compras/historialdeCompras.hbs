@@ -21,6 +21,9 @@
                     </p>
                     {{#each products}}
                     <p>
+                        <i class="fas fa-shopping-bag"> FechaCompra: {{FechaCompra}}</i>
+                    </p>
+                    <p>
                         <i class="fas fa-shopping-bag"> Producto: {{ProductoCompra}}</i>
                     </p>
                     <p>
@@ -29,6 +32,9 @@
                     <p>
                         <i class="fas fa-dollar-sign"> Precio unitario: ₡ {{unitPrice}}</i>
                     </p>
+                    <p>
+                        <img src="{{Imagen}}" alt="">
+                    </p>    
                     {{/each}}
                 </div>
                 <p style="text-align: center; font-weight: bold;">Total: ₡ {{precioFinal}}</p>

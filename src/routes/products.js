@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const producto = require('../models/productoModel');
 const fs=require('fs');
+var bodyParser = require('body-parser');
+const multer = require('multer');
+
+
 
 router.get('/Products/ProductView', (req, res) => {
     res.render('Products/ProductView');
@@ -66,6 +70,8 @@ router.post('/Products/ProductView', async (req, res) => {
             req.flash('error_msg', 'Producto ya registrado');
             res.redirect('/Products/ProductView');
         } else {
+            
+                       
             var path='C:/productos/'+Imagen;
             ObjetoProducto.NombreArticulo = NombreArticulo;
             ObjetoProducto.Marca = Marca;

@@ -5,6 +5,9 @@ const SchemaCompra = new Schema({
     cliente: {
         type: String,
     },
+    FechaCompra:{
+        type:Date,
+    },
     products: {
         type: Array,
         default: []
