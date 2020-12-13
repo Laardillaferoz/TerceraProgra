@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const producto = require('../models/productoModel');
+const fs=require('fs');
 
 router.get('/Products/ProductView', (req, res) => {
     res.render('Products/ProductView');
@@ -65,12 +66,14 @@ router.post('/Products/ProductView', async (req, res) => {
             req.flash('error_msg', 'Producto ya registrado');
             res.redirect('/Products/ProductView');
         } else {
+            var path='C:/productos/'+Imagen;
             ObjetoProducto.NombreArticulo = NombreArticulo;
             ObjetoProducto.Marca = Marca;
             ObjetoProducto.Precio = Precio;
             ObjetoProducto.Edicion = Edicion;
             ObjetoProducto.Inventario = Inventario;
-            ObjetoProducto.Imagen = Imagen;
+            ObjetoProducto.Imagen.data = fs.readFileSync(path);
+            ObjetoProducto.Imagen.contentype='image/png';
             ObjetoProducto.TipoProducto = TipoProducto;
             res.render('Products/UsoDeportes', { ObjetoProducto });
         }

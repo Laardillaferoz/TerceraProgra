@@ -21,7 +21,8 @@ const Schemaproducto = new Schema({
         type: String, required: true
     },
     Imagen: {
-        type: String
+        data: Buffer,
+        contentype: String
     },
     TipoProducto: {
         type: String, required: true
