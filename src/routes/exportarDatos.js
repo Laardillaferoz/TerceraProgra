@@ -1,4 +1,4 @@
-const express = require('express');
+/**const express = require('express');
 const router = express.Router();
 const neo4j = require("neo4j-driver").v4;
 const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("TerceraProgra", "1234"));
@@ -100,4 +100,4 @@ router.get('/exportarDatos', async (req, res) => { // De Mongo a NEO
 
 })
 
-module.exports = router;
+module.exports = router; */
