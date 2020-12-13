@@ -25,13 +25,8 @@ router.post('/compras/registrarCompra', async (req, res) => {
     }
     if (!Cantidad) {
         errors.push({ text: "You must enter the quantity" });
-    }
-    //if (errors.length > 0) {
-    ///   console.log('me ama');
-    //   res.render("./compras/registrarCompra", {errors});
-    //}
-    else {
-
+    } else {
+        require('../index').compraActual.cliente = require('../index').clienteActual;
         var productosD = require('../index').compraActual.ProductoCompra;
 
         await productosDisponibles.findOne({ NombreArticulo: ProductoCompra }, async (err, found) => {
@@ -49,7 +44,7 @@ router.post('/compras/registrarCompra', async (req, res) => {
                     var Actual = require('../index').compraActual.precioFinal;
                     var precio = (parseInt(found.Precio) * parseInt(Cantidad));
 
-                    require('../index').compraActual.products.push({ ProductoCompra: ProductoCompra, Cantidad: Cantidad, unitPrice: found.precio });
+                    require('../index').compraActual.products.push({ ProductoCompra: ProductoCompra, Cantidad: Cantidad, unitPrice: found.Precio });
                     require('../index').compraActual.precioFinal = (parseInt(Actual) + parseInt(precio));
                     //require('../index').compraActual.Precio = (parseInt(compraActual) + parseInt(Precio));
 
@@ -99,4 +94,11 @@ router.post('/compras/finalCompra', async (req, res) => {
 // router.get('/compras/finalCompra',(req,res)=>{
 //     res.render('compras/registrarCompra')
 //})
+
+
+router.get('/compras/historialdeCompras',async(req,res)=>{
+    var clienteHistoria=require('../index').clienteActual;
+    const comprasHist=await compras.find({cliente:clienteHistoria});
+    res.render('compras/historialdeCompras',{comprasHist});
+})
 module.exports = router;
