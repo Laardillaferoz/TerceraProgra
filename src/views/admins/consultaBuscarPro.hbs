@@ -1,1 +1,74 @@
-<h1>Consulta ver productos adquiridos</h1>
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/each}}
+
+<div class="jumbotron-mt-4">
+    <h1 class="display-1 text-center"
+        style="color:crimson; font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+        ~SportStore~
+    </h1>
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">Buscar Producto
+    </h1>
+
+    <form action='/admins/consultaBuscarProEspe' method="POST">
+        <div class="home_title text-center">
+            <br>
+            <br>
+            <label style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">Nombre
+                Producto
+                <br>
+                <input type="text" name="NombreArticulo" id="NombreArticulo">
+            </label>
+            <br>
+            <br>
+            <button class="btn btn-primary btn-block" type="submit"
+                style=" background-color:darkslategrey; height:60px; width:300px; font-size:25px;">
+                <i class="fas fa-question-circle"> Realizar consulta</i>
+            </button>
+            <br>
+            <br>
+        </div>
+    </form>
+
+</div>
+
+<br>
+
+<div class="row" style="font-family: 'Times New Roman', Times, serif;">
+    <br><br>
+    <div class="col-md-3">
+        <div class="purchase">
+            <div class="body">
+                <h5 class="productos"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">
+                    <i class="fas fa-shopping-bag"></i>
+                    Producto: {{NombreArticulo}}
+                </h5>
+                <div class="card-body" style="border-radius: 6mm; background-color:#cfd8dc;">
+                    <p>
+                        <i class="fas fa-copyright"> Marca {{Marca}}</i>
+                    </p>
+                    <p>
+                        <i class="fas fa-dollar-sign"> Precio: ₡{{Precio}}</i>
+                    </p>
+                    <p>
+                        <i class="fas fa-running"> Deportes: {{Deportes.[0]}}</i>
+                    </p>
+                    <p style="font-weight: bold;">
+                        <i class="fab fa-old-republic"> ¿Es edición limitada?</i>
+                    </p>
+                    <p>
+                        <i class="fas fa-list-ol"> Inventario: {{Inventario}}</i>
+                    </p>
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
