@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 module.exports.compraActual = new compras;
 //module.exports.clienteActual=new User;
 module.exports.productosActuales = new productoModel;
-
+module.exports.clienteActual = "";
 //Routes
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));

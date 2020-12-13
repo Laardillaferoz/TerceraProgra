@@ -1,0 +1,30 @@
+<br><br>
+<h4>Purchases TECMarket</h4>
+<br><br>
+<div class="row">
+    <br><br>
+    {{#each comprasHist}}
+    <div class="col-md-3">
+        <div class="purchase">
+            <div class="body">
+                <h5 class="clienteHistoria">
+                  Client:  {{cliente}}
+                </h5>
+                <p>Products:</p>
+                {{#each products}}
+                    <p>Code: {{ProductoCompra}}</p>
+                    <p>Quantity: {{Cantidad}}</p>
+                    <p>Price: ₡ {{unitPrice}}</p>
+                    <br>
+                {{/each}}
+               
+                <p>Total price: {{precioFinal}}</p>
+               
+                
+                <br><br>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<br><br><br>
