@@ -66,9 +66,9 @@ router.post('/users/signup', async (req, res) => {
     res.redirect('/');
 });*/
 
-router.get('users/logout', function (req, res) {
-    //req.logout();
-    req.session.destroy();
+router.get('/users/logout', function (req, res) {
+    req.logout();
+    //req.session.destroy();
     res.redirect('/');
 });
 
