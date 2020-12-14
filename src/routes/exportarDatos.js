@@ -46,23 +46,24 @@ router.get('/exportarDatos', async (req, res) => {
             contadorCompras += 1;
 
         }
+
+
+        var Nombre = ArrayCompraPorCliente[0].name;
+        var Apellido = ArrayCompraPorCliente[0].lastName;
+        var FechaNa = ArrayCompraPorCliente[0].birth;
+        var Sexo = ArrayCompraPorCliente[0].sex;
+        var Usuario = ArrayCompraPorCliente[0].user;
+        var Correo = ArrayCompraPorCliente[0].email;
+        var Contrasenia = ArrayCompraPorCliente[0].password;
+        var fecha = ArrayCompraPorCliente[0].date;
+
+
+        // Agrega el usuario primero a Neo
+        session2.run("CREATE (n:Usuario {nombre:'" + Nombre + "',apellido:'" + Apellido + "',fechaNaciemiento:" + FechaNa + ",sexo:'" + Sexo + "'" + ",usuario:'" + Usuario + "',correo:'" + Correo + "',contrasenia:'" + Contrasenia + "',fecha: '" + fecha + "'})" + "RETURN n").then(function (result) { // console.log(result.records[0]._fields[0].properties)
+        }).catch(function (err) {})
+
     }
-
-    var Nombre = ArrayCompraPorCliente[0].name;
-    var Apellido = ArrayCompraPorCliente[0].lastName;
-    var FechaNa = ArrayCompraPorCliente[0].birth;
-    var Sexo = ArrayCompraPorCliente[0].sex;
-    var Usuario = ArrayCompraPorCliente[0].user;
-    var Correo = ArrayCompraPorCliente[0].email;
-    var Contrasenia = ArrayCompraPorCliente[0].password;
-    var fecha = ArrayCompraPorCliente[0].date;
-
-
-    // Agrega el usuario primero a Neo
-    session2.run("CREATE (n:Usuario {nombre:'" + Nombre + "',apellido:'" + Apellido + "',fechaNaciemiento:" + FechaNa + ",sexo:'" + Sexo + "'" + ",usuario:'" + Usuario + "',correo:'" + Correo + "',contrasenia:'" + Contrasenia + "',fecha: '" + fecha + "'})" + "RETURN n").then(function (result) { // console.log(result.records[0]._fields[0].properties)
-    }).catch(function (err) {})
-
-
+    
     // Agregar productos
 
     var contadorProductosFinales = 1;
