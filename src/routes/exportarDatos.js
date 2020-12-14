@@ -14,6 +14,7 @@ router.get('/exportarDatos', async (req, res) => {
     // PASAR DE MONGO A NEO4J
 
     // Constantes que guardan los modelos
+    console.log('constantes');
     const comprasCons = await comprasModelo.find();
     const usuarioCons = await usuarioModelo.find();
     const productosCons = await productoModelo.find();
@@ -28,6 +29,7 @@ router.get('/exportarDatos', async (req, res) => {
     var ArrayCompraPorCliente = [];
 
     // Agregar usuario
+    console.log('AgregarUsuario');
     var contadorUsuario = 0;
     while (usuarioCons.length > contadorUsuario) {
 
@@ -66,6 +68,7 @@ router.get('/exportarDatos', async (req, res) => {
     
     // Agregar productos
 
+    console.log('AgregarProductos');
     var contadorProductosFinales = 1;
     while (productosCons.length > contadorProductosFinales) {
 
@@ -87,6 +90,7 @@ router.get('/exportarDatos', async (req, res) => {
 
     // Agregar compras
 
+    console.log('AgregarCompras');
     var contadorComprasFinales = 1;
     while (ArrayCompraPorCliente.length > contadorComprasFinales) {
 
@@ -147,7 +151,6 @@ router.get('/exportarDatos', async (req, res) => {
     }
     success.push({text: "The migration was executed successfully"});
     res.render("prueba", {success});
-
 
 })
 
