@@ -150,9 +150,8 @@ router.get('/exportarDatos', async (req, res) => {
 
         console.log(comprasCons);
 
-        //const FechaCompra = comprasCons[contadorComprasFinales].FechaCompra;
         const Cliente = comprasCons[contadorComprasFinales].cliente;
-        const Productos = "";
+        var Productos = "";
         const PrecioFinal = comprasCons[contadorComprasFinales].precioFinal;
         
 
@@ -165,18 +164,22 @@ router.get('/exportarDatos', async (req, res) => {
 
                 console.log(comprasCons[contadorComprasFinales].products[contadorProductos]);
 
-                // Deportes+="Deporte: "
-                sports += String(comprasCons[contadorComprasFinales].products[contadorProductos].products) + ",";
-                // Deportes+="  "
+                Productos+="Productos: "
+                Productos += String(comprasCons[contadorComprasFinales].products[contadorProductos].ProductoCompra) + ",";
+                Productos += String(comprasCons[contadorComprasFinales].products[contadorProductos].Cantidad) + ",";
+                Productos += comprasCons[contadorComprasFinales].products[contadorProductos].unitPrice + ",";
+                Productos += comprasCons[contadorComprasFinales].products[contadorProductos].FechaCompra + ",";
+                Productos+="  "
                 contadorProductos += 1;
             }
+            
 
         }
 
 
         // Agrega la compra a neo
         try {
-            const result = await session2.run('CREATE (n:Compra {Cliente:$cliente, productos:$productos, precioFinal:$precioFinal }) RETURN n', {
+            const result = await session2.run('CREATE (n:Compra {Cliente:$cliente,productos:$productos,precioFinal:$precioFinal }) RETURN n', {
                 cliente: Cliente,
                 productos: Productos,
                 precioFinal: PrecioFinal,
