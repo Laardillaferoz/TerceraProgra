@@ -1,103 +1,153 @@
-/**const express = require('express');
+const express= require('express');
+const axios = require('axios');
 const router = express.Router();
-const neo4j = require("neo4j-driver").v4;
-const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("TerceraProgra", "1234"));
-const session1 = driver.session();
+const neo4j = require("neo4j-driver").v1;
+const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"));
+const session2= driver.session();
 
-// Modelos
-const CompraModelo = require("../models/compras");
-const ProductoModelo = require("../models/productoModel");
-const usuarioModelo = require("../models/promocionModel");
+//MODELOS
+const comprasModelo = require("../models/compras");
+const usuarioModelo = require("../models/User");
+const productoModelo = require("../models/productoModel");
 
-router.get('/exportarDatos', async (req, res) => { // De Mongo a NEO
 
-    const comprasCons = await CompraModelo.find();
-    const productoCons = await ProductoModelo.find();
+router.get('/exportarDatos', async (req,res)=>{
+    //PASAR DE MONGO A NEO4J
+
+    const comprasCons = await comprasModelo.find();
     const usuarioCons = await usuarioModelo.find();
+    const productosCons = await productoModelo.find();
+    
 
+    var success=[];
 
-    var success = [];
+    //Array de los productos por pedido es
+    var ArrayProductosPorPedido=[];
+ 
+    //cliente con su pedido 
+    var ArrayCompraPorCliente=[];
 
-    // Array productos por compra
-    var ArrayProductosPorCompra = [];
+    var contadorUsuario=0;
+    while(usuarioCons.length>contadorUsuario){ 
 
+        ArrayCompraPorCliente.push(usuarioCons[contadorUsuario]);
 
-    // Agregar usuario
-    var contadorUsuario = 0;
+        var contadorCompras=0;
 
-    while (usuarioModelo.length > contadorUsuario) {
+        while(comprasCons.length>contadorCompras){
 
-        var nombreU = usuarioModelo[contadorUsuario].name;
-        var apellidoU = usuarioModelo[contadorUsuario].lastName;
-        var fechaNaU = usuarioModelo[contadorUsuario].birth;
-        var sexoU = usuarioModelo[contadorUsuario].sex;
-        var usuarioU = usuarioModelo[contadorUsuario].user
-        var emailU = usuarioModelo[contadorUsuario].email;
-        var contraseniaU = usuarioModelo[contadorUsuario].password;
-        var fechaU = usuarioModelo[contadorUsuario].date;
+            if(comprasCons[contadorCompras].cliente==String(usuarioCons[contadorUsuario].email)){
 
+                ArrayCompraPorCliente.push(comprasCons[contadorCompras])
 
-        session2.run("CREATE (n:Usuario {nombre:'" + nombreU + "',apellido:'" + apellidoU + "' , fechaNacimiento:'" + fechaNaU + "', Sexo:'" + sexoU + "', Usuario:'" + usuarioU + "', Email:'" + emailU + "', Contrasenia:'" + contraseniaU + "', Fecha:'" + fechaU + "'})" + "RETURN n").then(function (result) {}).catch(function (err) {
-            console.log("hola")
+            }
+
+            contadorCompras += 1;
+
+        }
+
+        var Nombre=ArrayCompraPorCliente[0].name;
+        var Apellido=ArrayCompraPorCliente[0].lastName;
+        var FechaNa=ArrayCompraPorCliente[0].birth;
+        var Sexo=ArrayCompraPorCliente[0].sex;
+        var Usuario=ArrayCompraPorCliente[0].user;
+        var Correo=ArrayCompraPorCliente[0].email;
+        var Contrasenia=ArrayCompraPorCliente[0].password;
+        var fecha=ArrayCompraPorCliente[0].date;
+
+    
+        //agrega el cliente primero
+        session2
+        .run("CREATE (n:Usuario {nombre:'"+Nombre+"',apellido:'"+Apellido+"',fechaNaciemiento:"+FechaNa+",sexo:'"+Sexo+"'"+
+            ",usuario:'"+Usuario+"',correo:'"+Correo+"',contrasenia:'"+Contrasenia+"',fecha: '"+fecha+"'})"+
+            "RETURN n")
+        .then(function(result){
+            //console.log(result.records[0]._fields[0].properties)
+        })
+        .catch(function(err){
         })
 
-        contadorUsuario += 1;
-    }
+        var contadorComprasFinales=1;
+        while(ArrayCompraPorCliente.length>contadorComprasFinales){
 
-    // Asociar compras a los clientes
+            var Cliente=ArrayCompraPorCliente[contadorComprasFinales].cliente;
+            var FechaCompra=ArrayCompraPorCliente[contadorComprasFinales].FechaCompra;
+            var Productos=ArrayCompraPorCliente[contadorComprasFinales].products;
+            var PrecioFinal=ArrayCompraPorCliente[contadorComprasFinales].precioFinal;
+            
+            
+            var productsP=[];
+            var contadorIdsCompras=0;
+            
 
-    var arrayCompraPorCliente = [];
-
-    var contadorUser = 0;
-    while (usuarioCons.length > contadorUser) {
-        arrayCompraPorCliente.push(usuarioCons[contadorUser]);
-
-        var contadorCompras = 0;
-        while (comprasCons.length > contadorCompras) {
-            if (comprasCons[contadorCompras].cliente == String(usuarioCons[contadorUser].name)) {
-                arrayCompraPorCliente.push(comprasCons[contadorCompras])
+            while(ArrayCompraPorCliente[contadorComprasFinales].productosCons.length>contadorIdsCompras){ 
+                //DEFINIDO AL INCIO ESTE ARRAY
+                console.log(ArrayCompraPorClienteo[contadorComprasFinales].productosCons[contadorIdsCompras].products)
+                productsP.push(ArrayCompraPorCliente[contadorComprasFinales].productosCons[contadorIdsCompras].products)
+                contadorIdsCompras+=1;
             }
-            contadorCompras += 1;
-        }
-    }
 
-    var contadorPedidosFinales = 1;
+            productsFinal.push(productsP)
 
-    while (arrayCompraPorCliente.length > contadorPedidosFinales) {
-        var cliente = arrayCompraPorCliente[contadorPedidosFinales].cliente;
-        var productos = arrayCompraPorCliente[contadorPedidosFinales].products;
-        var precioFinal = arrayCompraPorCliente[contadorPedidosFinales].precioFinal;
-
-        var productsP = [];
-        var contadorIdsPurchases = 0;
-        while (arrayCompraPorCliente[contadorPedidosFinales].productoCons.length > contadorIdsPurchases) {
-            console.log(arrayCompraPorCliente[contadorPedidosFinales].productoCons[contadorIdsPurchases].NombreArticulo)
-            productsP.push(arrayClientePedido[contadorPedidosFinales].productoCons[contadorIdsPurchases].NombreArticulo)
-            contadorIdsPurchases += 1;
+            //agregar purchases
+            session2
+            .run("CREATE (n:Purchases {client:'"+clientP+"',supermarketName:'"+supermarketName+"',date:'"+date+"',status:'"+status+"',extraInformation:'"+extraInformation+"'"+
+                ",finalPrice:"+finalPrice+",products:'"+productsP+"'})"+
+                " RETURN n")
+            .then(function(result){
+                console.log(result.records[0]._fields[0].properties)
+            })
+            .catch(function(err){
+            })
+            ArrayProductosPorPedido+=1
         }
 
-        productsFinal.push(productsP)
-
-        // Agregar compras
-        session.run("CREATE (n:Compras {Cliente:'" + cliente + "',Producto:'" + productos + "',Precio Final:'" + precioFinal + " RETURN n").then(function (result) {
+        //Relacion cliente con compras
+        session2
+        .run('MATCH (a:Client),(b:Purchases) WHERE a.idClient=b.client and a.idClient="'+arrayClientePedido[0].idClient+'" CREATE (a)-[r:didPurchase]->(b) RETURN r')
+        .then(function(result){ 
             console.log(result.records[0]._fields[0].properties)
-        }).catch(function (err) {})
-        contadorPedidosFinales += 1
+        })
+        .catch(function(err){
+        })
+
+        arrayClientePedido=[];
+        contadorCliente+=1;
+
     }
 
-    // Relación entre cliente y compras
+    //se agregan relaciones entre pedido y producto
+    console.log(productsFinal)
+    var contadorPrincipal=0;
+    while(productsFinal.length>contadorPrincipal){
 
-    session.run('MATCH (a:Usuario),(b:Compras) WHERE a._id=b._id and a._id="' + arrayClientePedido[0]._id + '" CREATE (a)-[r:didPurchase]->(b) RETURN r').then(function (result) {
-        console.log(result.records[0]._fields[0].properties)
-    }).catch(function (err) {})
+        console.log(1)
+        var contadorInterno=1;
 
-    arrayClientePedido = [];
-    contadorCliente += 1;
+        while(productsFinal[contadorPrincipal].length>contadorInterno){
+            console.log(2)
+            session2
+            .run('MATCH (a:Product),(b:Purchases) WHERE a.idProduct="'+productsFinal[contadorPrincipal][contadorInterno]+'"and b.extraInformation="'+productsFinal[contadorPrincipal][0]+'" CREATE (a)-[r:addedTo]->(b) RETURN r')
+            .then(function(result){ 
+                console.log(result.records[0]._fields[0].properties)
+                
+            })
+            .catch(function(err){
+            })
 
-    success.push({text: "The migration was executed successfully"});
-    res.render("prueba", {success});
-    driver.close();
+            contadorInterno+=1
+        }
+
+        contadorPrincipal+=1
+    }
+    success.push({text:"The migration was executed successfully"});
+                res.render("Indexapp",{
+                    success
+                });
+
+
+
 
 })
 
-module.exports = router; */
+module.exports = router;
