@@ -20,7 +20,7 @@ router.get('/exportarDatos', async (req, res) => {
     const comprasCons = await comprasModelo.find();
     // console.log(comprasCons);
     const usuarioCons = await usuarioModelo.find();
-    //console.log(usuarioCons[3]);
+    // console.log(usuarioCons[3]);
     const productosCons = await productoModelo.find();
 
     var contadorUsuario = 0;
@@ -56,9 +56,6 @@ router.get('/exportarDatos', async (req, res) => {
             // { apellido: Lastname}
             )
 
-            // CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$Usuario,Email:$Email,pass:$Contrasena,fecha:$fecha}) RETURN n
-            // { name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,Usuario:Usuario,Email:Correo,Contrasena:Contrasenia,fecha:fecha}
-
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
 
@@ -67,74 +64,29 @@ router.get('/exportarDatos', async (req, res) => {
         } contadorUsuario += 1;
         console.log(contadorUsuario);
     }
-    // on application exit:
-    // await driver.close()
-/*
-    
-    //var success = [];
 
-    // Array de los productos por compra. nosé
-    //var ArrayProductosPorCompra = [];
-
-    // Array del cliente con su compra.
-    var ArrayCompraPorCliente = [];
-    //var Nombre1 = usuarioCons[0].name;
-    //console.log(Nombre1);
-    // Agregar usuario
-    console.log('AgregarUsuario');
-    var contadorUsuario=0;
-    while (contadorUsuario < usuarioCons.length ) {
-        
-        var Nombre = usuarioCons[contadorUsuario].name;
-        console.log(Nombre);
-        var Apellido = usuarioCons[contadorUsuario].lastName;
-        console.log(Apellido);
-        var FechaNa = usuarioCons[contadorUsuario].birth;
-        console.log(FechaNa);
-        var Sexo = usuarioCons[contadorUsuario].sex;
-        console.log(Sexo);
-        var Usuario = usuarioCons[contadorUsuario].user;
-        console.log(Usuario);
-        var Correo = usuarioCons[contadorUsuario].email;
-        console.log(Correo);
-        var Contrasenia = usuarioCons[contadorUsuario].password;
-        console.log(Contrasenia);
-        var fecha = usuarioCons[contadorUsuario].date;
-        console.log(fecha);
-        // Agrega el usuario primero a Neo
-        session2
-        .run("CREATE (n:Usuario {nombre:'"+Nombre+"' ,apellido:'"+Apellido+"' ,fechaNaciemiento:'"+FechaNa+"' ,sexo:'"+Sexo+"' ,usuario:'"+Usuario+"' ,correo:'" + Correo + "' ,contrasenia:'" + Contrasenia + "' ,fecha: '" + fecha + "'})" + "RETURN n")
-        .then(function (result) {})
-        .catch(function (err) {
-            console.log('Se agrego el cliente a neo');
-        })
-        console.log(session2);
-        contadorUsuario+=1;
-        
-    }
-*/
 
     // cliente con su compra
     // var arrayClientePedido=[];
     var ArrayCompraPorCliente = [];
-    var contadorCliente=0;
-    while(usuarioCons.length>contadorCliente){ 
+    var contadorCliente = 0;
+    while (usuarioCons.length > contadorCliente) {
 
         ArrayCompraPorCliente.push(usuarioCons[contadorCliente]);
 
-        var contadorPedido=0;
-        while(comprasCons.length>contadorPedido){
+        var contadorPedido = 0;
+        while (comprasCons.length > contadorPedido) {
 
-            if(comprasCons[contadorPedido].cliente==(usuarioCons[contadorCliente].email)){
+            if (comprasCons[contadorPedido].cliente == (usuarioCons[contadorCliente].email)) {
 
                 ArrayCompraPorCliente.push(comprasCons[contadorPedido])
 
             }
 
-            contadorPedido+=1;
+            contadorPedido += 1;
 
         }
-        contadorCliente+=1;
+        contadorCliente += 1;
     }
 
     // Agregar productos
@@ -148,24 +100,24 @@ router.get('/exportarDatos', async (req, res) => {
         const Precio = productosCons[contadorProductosFinales].Precio;
         const Edicion = productosCons[contadorProductosFinales].Edicion;
         const Inventario = productosCons[contadorProductosFinales].Inventario;
-        //const Imagen = productosCons[contadorProductosFinales].Imagen;
+        // const Imagen = productosCons[contadorProductosFinales].Imagen;
         const TipoP = productosCons[contadorProductosFinales].TipoProducto;
         var sports = "";
 
-        //console.log(productosCons);
-        if(productosCons[contadorProductosFinales].Deportes){
+        // console.log(productosCons);
+        if (productosCons[contadorProductosFinales].Deportes) {
 
-            var contadorDeportes=0;
+            var contadorDeportes = 0;
             console.log(productosCons[contadorProductosFinales].Deportes[contadorDeportes]);
-            
-            while(productosCons[contadorProductosFinales].Deportes.length>contadorDeportes){ 
+
+            while (productosCons[contadorProductosFinales].Deportes.length > contadorDeportes) {
 
                 console.log(productosCons[contadorProductosFinales].Deportes[contadorDeportes]);
 
-                //Deportes+="Deporte: "
-                sports+=String(productosCons[contadorProductosFinales].Deportes[contadorDeportes].Deportes)+",";
-                //Deportes+="  "
-                contadorDeportes+=1;
+                // Deportes+="Deporte: "
+                sports += String(productosCons[contadorProductosFinales].Deportes[contadorDeportes].Deportes) + ",";
+                // Deportes+="  "
+                contadorDeportes += 1;
             }
 
         }
@@ -179,22 +131,17 @@ router.get('/exportarDatos', async (req, res) => {
                 deportes: sports,
                 edicion: Edicion,
                 inventario: Inventario,
-                //imagen: Imagen,
+                // imagen: Imagen,
                 tipoP: TipoP
-                
+
             })
             console.log('NEO PRODUCTOS');
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
-        } finally {
-            //await session2.close();
-        }
-        // session2.run("CREATE (n:Producto {nombre:'" + nombre + "',marca:'" + marca + "',precio:" + precio + ",deportes:'" + deportes + "'" + ",edicion:'" + edicion + "',inventario:'" + inventario + "',imagen:'" + imagen + "',tipoP:'" + tipoP + "'})" + "RETURN n").then(function (result) {}
-        // ).catch(function (err) {console.log('Se agrego el productos a neo')})
-
-        contadorProductosFinales += 1;
+        } finally { // await session2.close();
+        } contadorProductosFinales += 1;
     }
-    
+
     // Agregar compras
 
     console.log('AgregarCompras');
@@ -202,25 +149,26 @@ router.get('/exportarDatos', async (req, res) => {
     while (comprasCons.length > contadorComprasFinales) {
 
         console.log(comprasCons);
-       
+
         //const FechaCompra = comprasCons[contadorComprasFinales].FechaCompra;
+        const Cliente = comprasCons[contadorComprasFinales].cliente;
         const Productos = "";
         const PrecioFinal = comprasCons[contadorComprasFinales].precioFinal;
-        const Cliente = comprasCons[contadorComprasFinales].cliente;
+        
 
-        if(comprasCons[contadorComprasFinales].products){
+        if (comprasCons[contadorComprasFinales].products) {
 
-            var contadorProductos=0;
+            var contadorProductos = 0;
             console.log(comprasCons[contadorComprasFinales].products[contadorProductos]);
-            
-            while(comprasCons[contadorComprasFinales].products.length>contadorProductos){ 
+
+            while (comprasCons[contadorComprasFinales].products.length > contadorProductos) {
 
                 console.log(comprasCons[contadorComprasFinales].products[contadorProductos]);
 
-                //Deportes+="Deporte: "
-                sports+=String(comprasCons[contadorComprasFinales].products[contadorProductos].products)+",";
-                //Deportes+="  "
-                contadorProductos+=1;
+                // Deportes+="Deporte: "
+                sports += String(comprasCons[contadorComprasFinales].products[contadorProductos].products) + ",";
+                // Deportes+="  "
+                contadorProductos += 1;
             }
 
         }
@@ -228,22 +176,17 @@ router.get('/exportarDatos', async (req, res) => {
 
         // Agrega la compra a neo
         try {
-            const result = await session2.run(
-            'CREATE (n:Compra {Cliente: $cliente, productos: $productos, precioFinal: $precioFinal}) RETURN n',
-            { productos:Productos, precioFinal:PrecioFinal, cliente:Cliente}
-            //{ apellido: Lastname}
-            )
+            const result = await session2.run('CREATE (n:Compra {Cliente:$cliente, productos:$productos, precioFinal:$precioFinal }) RETURN n', {
+                cliente: Cliente,
+                productos: Productos,
+                precioFinal: PrecioFinal,
                 
-            //CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$Usuario,Email:$Email,pass:$Contrasena,fecha:$fecha}) RETURN n
-            //{ name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,Usuario:Usuario,Email:Correo,Contrasena:Contrasenia,fecha:fecha}
-
+            })
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
-        
-            //console.log(node.properties.name)
-        } finally {
-            //await session2.close()
-        } contadorComprasFinales+=1;
+
+
+        } finally {} contadorComprasFinales += 1;
     }
     /*
     // Relacion entre cliente y compras
