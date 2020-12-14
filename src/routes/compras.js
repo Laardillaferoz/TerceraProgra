@@ -1,7 +1,9 @@
 const express = require('express');
 //const { compraActual } = require('..');
 const compras = require('../models/compras');
+const { findOneAndUpdate, countDocuments } = require('../models/productoModel');
 const productosDisponibles = require('../models/productoModel');
+const promocion = require('../models/promocionModel');
 const router = express.Router();
 
 router.get('/compras/registrarCompra', (req, res) => {
@@ -41,6 +43,8 @@ router.post('/compras/registrarCompra', async (req, res) => {
                     //req.flash('error_msg' , "No cantidad");
                     res.render("./compras/registrarCompra", { errors });
                 } else {
+                    
+                    
                     var Actual = require('../index').compraActual.precioFinal;
                     var precio = (parseInt(found.Precio) * parseInt(Cantidad));
                     

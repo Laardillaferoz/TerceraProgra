@@ -8,7 +8,9 @@ const session2 = driver.session();
 const comprasModelo = require("../models/compras");
 const usuarioModelo = require("../models/User");
 const productoModelo = require("../models/productoModel");
-
+router.get('/hola'),async(req,res)=>{
+    res.render('/prueba')
+}
 
 router.get('/exportarDatos', async (req, res) => {
     // PASAR DE MONGO A NEO4J
@@ -16,10 +18,56 @@ router.get('/exportarDatos', async (req, res) => {
     // Constantes que guardan los modelos
     console.log('constantes');
     const comprasCons = await comprasModelo.find();
+    //console.log(comprasCons);
     const usuarioCons = await usuarioModelo.find();
+    console.log(usuarioCons[3]);
     const productosCons = await productoModelo.find();
 
+    var contadorUsuario=0;
+    while (contadorUsuario < usuarioCons.length ) {
+        
+        const Nombre = usuarioCons[contadorUsuario].name;
+        const Lastname = usuarioCons[contadorUsuario].lastName;
+        const FechaNa = usuarioCons[contadorUsuario].birth;
+        console.log(FechaNa);
+        const Sexo = usuarioCons[contadorUsuario].sex;
+        console.log(Sexo);
+        const Usuario = usuarioCons[contadorUsuario].user;
+        console.log(Usuario);
+        const Correo = usuarioCons[contadorUsuario].email;
+        console.log(Correo);
+        const Contrasenia = usuarioCons[contadorUsuario].password;
+        console.log(Contrasenia);
+        const fecha = usuarioCons[contadorUsuario].date;
+        console.log(fecha);
 
+
+    
+        const personName = 'Alice';
+        try {
+            const result = await session2.run(
+            'CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$usuario,Email:$email,pass:$contrasena}) RETURN n',
+            { name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,usuario:Usuario,email:Correo,contrasena:Contrasenia}
+            //{ apellido: Lastname}
+            )
+                
+            //CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$Usuario,Email:$Email,pass:$Contrasena,fecha:$fecha}) RETURN n
+            //{ name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,Usuario:Usuario,Email:Correo,Contrasena:Contrasenia,fecha:fecha}
+
+            const singleRecord = result.records[0]
+            const node = singleRecord.get(0)
+        
+            //console.log(node.properties.name)
+        } finally {
+            //await session2.close()
+        }
+        contadorUsuario+=1;
+        console.log(contadorUsuario);
+    }
+      // on application exit:
+      //await driver.close()
+
+    /*  
     var success = [];
 
     // Array de los productos por compra. nosé
@@ -27,33 +75,46 @@ router.get('/exportarDatos', async (req, res) => {
 
     // Array del cliente con su compra.
     var ArrayCompraPorCliente = [];
-
+    //var Nombre1 = usuarioCons[0].name;
+    //console.log(Nombre1);
     // Agregar usuario
     console.log('AgregarUsuario');
-    var contadorUsuario = 0;
-    while (usuarioCons.length > contadorUsuario) {
-
+    var contadorUsuario=0;
+    while (contadorUsuario < usuarioCons.length ) {
+        
         var Nombre = usuarioCons[contadorUsuario].name;
+        console.log(Nombre);
         var Apellido = usuarioCons[contadorUsuario].lastName;
+        console.log(Apellido);
         var FechaNa = usuarioCons[contadorUsuario].birth;
+        console.log(FechaNa);
         var Sexo = usuarioCons[contadorUsuario].sex;
+        console.log(Sexo);
         var Usuario = usuarioCons[contadorUsuario].user;
+        console.log(Usuario);
         var Correo = usuarioCons[contadorUsuario].email;
+        console.log(Correo);
         var Contrasenia = usuarioCons[contadorUsuario].password;
+        console.log(Contrasenia);
         var fecha = usuarioCons[contadorUsuario].date;
-
+        console.log(fecha);
         // Agrega el usuario primero a Neo
-        session2.run("CREATE (n:Usuario {nombre:'" + Nombre + "',apellido:'" + Apellido + "',fechaNaciemiento:" + FechaNa + ",sexo:'" + Sexo + "'" + ",usuario:'" + Usuario + "',correo:'" + Correo + "',contrasenia:'" + Contrasenia + "',fecha: '" + fecha + "'})" + "RETURN n").then(function (result) {}).catch(function (err) {
+        session2
+        .run("CREATE (n:Usuario {nombre:'"+Nombre+"' ,apellido:'"+Apellido+"' ,fechaNaciemiento:'"+FechaNa+"' ,sexo:'"+Sexo+"' ,usuario:'"+Usuario+"' ,correo:'" + Correo + "' ,contrasenia:'" + Contrasenia + "' ,fecha: '" + fecha + "'})" + "RETURN n")
+        .then(function (result) {})
+        .catch(function (err) {
             console.log('Se agrego el cliente a neo');
         })
-
-        contadorUsuario += 1;
+        //console.log(session2);
+        contadorUsuario+=1;
+        
+    }*/
     
-    }
-
+    
+});
     //cliente con su compra
     //var arrayClientePedido=[];
-
+    /*
     var contadorCliente=0;
     while(usuarioCons.length>contadorCliente){ 
 
@@ -160,7 +221,7 @@ router.get('/exportarDatos', async (req, res) => {
     success.push({text: "The migration was executed successfully"});
     res.render("prueba", {success});
 
-})
+})*/
 
 module.exports = router;
 
