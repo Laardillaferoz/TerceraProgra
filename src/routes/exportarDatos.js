@@ -1,7 +1,6 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
-const neo4j = require("neo4j-driver").v1;
+const neo4j = require("neo4j-driver");
 const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"));
 const session2 = driver.session();
 
@@ -73,7 +72,7 @@ router.get('/exportarDatos', async (req, res) => { // PASAR DE MONGO A NEO4J
 
 
             while (ArrayCompraPorCliente[contadorComprasFinales].productosCons.length > contadorIdsCompras) { // DEFINIDO AL INCIO ESTE ARRAY
-                console.log(ArrayCompraPorClienteo[contadorComprasFinales].productosCons[contadorIdsCompras].products)
+                console.log(ArrayCompraPorCliente[contadorComprasFinales].productosCons[contadorIdsCompras].products)
                 productsP.push(ArrayCompraPorCliente[contadorComprasFinales].productosCons[contadorIdsCompras].products)
                 contadorIdsCompras += 1;
             }
