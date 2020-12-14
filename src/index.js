@@ -72,7 +72,7 @@ app.use(require('./routes/promocion'));
 app.use(require('./routes/compras'));
 app.use(require('./routes/carrito'));
 app.use(require('./routes/finalizarCompra'));
-//app.use(require('./routes/exportarDatos'));
+app.use(require('./routes/exportarDatos'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));
