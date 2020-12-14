@@ -20,7 +20,7 @@ router.get('/exportarDatos', async (req, res) => {
     const comprasCons = await comprasModelo.find();
     // console.log(comprasCons);
     const usuarioCons = await usuarioModelo.find();
-    console.log(usuarioCons[3]);
+    //console.log(usuarioCons[3]);
     const productosCons = await productoModelo.find();
 
     var contadorUsuario = 0;
@@ -69,12 +69,12 @@ router.get('/exportarDatos', async (req, res) => {
     }
     // on application exit:
     // await driver.close()
-
-    /*  
-    var success = [];
+/*
+    
+    //var success = [];
 
     // Array de los productos por compra. nosé
-    var ArrayProductosPorCompra = [];
+    //var ArrayProductosPorCompra = [];
 
     // Array del cliente con su compra.
     var ArrayCompraPorCliente = [];
@@ -108,15 +108,15 @@ router.get('/exportarDatos', async (req, res) => {
         .catch(function (err) {
             console.log('Se agrego el cliente a neo');
         })
-        //console.log(session2);
+        console.log(session2);
         contadorUsuario+=1;
         
-    }*/
-
+    }
+*/
 
     // cliente con su compra
     // var arrayClientePedido=[];
-    /*
+    var ArrayCompraPorCliente = [];
     var contadorCliente=0;
     while(usuarioCons.length>contadorCliente){ 
 
@@ -135,7 +135,7 @@ router.get('/exportarDatos', async (req, res) => {
 
         }
         contadorCliente+=1;
-    }*/
+    }
 
     // Agregar productos
 
@@ -194,38 +194,58 @@ router.get('/exportarDatos', async (req, res) => {
 
         contadorProductosFinales += 1;
     }
-    /*
+    
     // Agregar compras
 
     console.log('AgregarCompras');
-    var contadorComprasFinales = 1;
-    while (ArrayCompraPorCliente.length > contadorComprasFinales) {
+    var contadorComprasFinales = 0;
+    while (comprasCons.length > contadorComprasFinales) {
 
-        var Cliente = ArrayCompraPorCliente[contadorComprasFinales].cliente;
-        var FechaCompra = ArrayCompraPorCliente[contadorComprasFinales].FechaCompra;
-        var Productos = ArrayCompraPorCliente[contadorComprasFinales].products;
-        var PrecioFinal = ArrayCompraPorCliente[contadorComprasFinales].precioFinal;
+        console.log(comprasCons);
+       
+        //const FechaCompra = comprasCons[contadorComprasFinales].FechaCompra;
+        const Productos = "";
+        const PrecioFinal = comprasCons[contadorComprasFinales].precioFinal;
+        const Cliente = comprasCons[contadorComprasFinales].cliente;
 
+        if(comprasCons[contadorComprasFinales].products){
 
-        var productsP = [];
-        var contadorIdsCompras = 0;
+            var contadorProductos=0;
+            console.log(comprasCons[contadorComprasFinales].products[contadorProductos]);
+            
+            while(comprasCons[contadorComprasFinales].products.length>contadorProductos){ 
 
+                console.log(comprasCons[contadorComprasFinales].products[contadorProductos]);
 
-        while (ArrayCompraPorCliente[contadorComprasFinales].productosCons.length > contadorIdsCompras) { // DEFINIDO AL INCIO ESTE ARRAY
-            console.log(ArrayCompraPorCliente[contadorComprasFinales].productosCons[contadorIdsCompras].products)
-            productsP.push(ArrayCompraPorCliente[contadorComprasFinales].productosCons[contadorIdsCompras].products)
-            contadorIdsCompras += 1;
+                //Deportes+="Deporte: "
+                sports+=String(comprasCons[contadorComprasFinales].products[contadorProductos].products)+",";
+                //Deportes+="  "
+                contadorProductos+=1;
+            }
+
         }
 
-        productsFinal.push(productsP)
 
         // Agrega la compra a neo
-        session2.run("CREATE (n:Compras {cliente:'" + Cliente + "',FechaCompra:'" + FechaCompra + "',Productos:'" + Productos + "',precioFinal:'" + PrecioFinal + " RETURN n").then(function (result) {
-            console.log(result.records[0]._fields[0].properties)
-        }).catch(function (err) { console.log('Se agrego la compra a neo');})
-        ArrayCompraPorCliente += 1
-    }
+        try {
+            const result = await session2.run(
+            'CREATE (n:Compra {Cliente: $cliente, productos: $productos, precioFinal: $precioFinal}) RETURN n',
+            { productos:Productos, precioFinal:PrecioFinal, cliente:Cliente}
+            //{ apellido: Lastname}
+            )
+                
+            //CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$Usuario,Email:$Email,pass:$Contrasena,fecha:$fecha}) RETURN n
+            //{ name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,Usuario:Usuario,Email:Correo,Contrasena:Contrasenia,fecha:fecha}
 
+            const singleRecord = result.records[0]
+            const node = singleRecord.get(0)
+        
+            //console.log(node.properties.name)
+        } finally {
+            //await session2.close()
+        } contadorComprasFinales+=1;
+    }
+    /*
     // Relacion entre cliente y compras
     session2.run('MATCH (a:Usuario),(b:Compras) WHERE a.email=b.cliente "' + '" CREATE (a)-[r:didPurchase]->(b) RETURN r').then(function (result) {
         console.log(result.records[0]._fields[0].properties)
@@ -234,7 +254,7 @@ router.get('/exportarDatos', async (req, res) => {
     ArrayCompraPorCliente = [];
     
 
-
+    /*
     // Relaciones entre compra y producto
 
     console.log(ArrayProductosPorCompra)
@@ -260,6 +280,7 @@ router.get('/exportarDatos', async (req, res) => {
     res.render("prueba", {success});
 */
 });
+
 
 module.exports = router;
 
