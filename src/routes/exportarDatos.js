@@ -8,24 +8,24 @@ const session2 = driver.session();
 const comprasModelo = require("../models/compras");
 const usuarioModelo = require("../models/User");
 const productoModelo = require("../models/productoModel");
-router.get('/hola'),async(req,res)=>{
+router.get('/hola'),
+async (req, res) => {
     res.render('/prueba')
-}
-
+} 
 router.get('/exportarDatos', async (req, res) => {
     // PASAR DE MONGO A NEO4J
 
     // Constantes que guardan los modelos
     console.log('constantes');
     const comprasCons = await comprasModelo.find();
-    //console.log(comprasCons);
+    // console.log(comprasCons);
     const usuarioCons = await usuarioModelo.find();
     console.log(usuarioCons[3]);
     const productosCons = await productoModelo.find();
 
-    var contadorUsuario=0;
-    while (contadorUsuario < usuarioCons.length ) {
-        
+    var contadorUsuario = 0;
+    while (contadorUsuario < usuarioCons.length) {
+
         const Nombre = usuarioCons[contadorUsuario].name;
         const Lastname = usuarioCons[contadorUsuario].lastName;
         const FechaNa = usuarioCons[contadorUsuario].birth;
@@ -42,30 +42,33 @@ router.get('/exportarDatos', async (req, res) => {
         console.log(fecha);
 
 
-    
         const personName = 'Alice';
         try {
-            const result = await session2.run(
-            'CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$usuario,Email:$email,pass:$contrasena}) RETURN n',
-            { name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,usuario:Usuario,email:Correo,contrasena:Contrasenia}
-            //{ apellido: Lastname}
+            const result = await session2.run('CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$usuario,Email:$email,pass:$contrasena}) RETURN n', {
+                name: Nombre,
+                apellido: Lastname,
+                fechaNac: FechaNa,
+                sexo: Sexo,
+                usuario: Usuario,
+                email: Correo,
+                contrasena: Contrasenia
+            }
+            // { apellido: Lastname}
             )
-                
-            //CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$Usuario,Email:$Email,pass:$Contrasena,fecha:$fecha}) RETURN n
-            //{ name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,Usuario:Usuario,Email:Correo,Contrasena:Contrasenia,fecha:fecha}
+
+            // CREATE (n:Usuario {nombre:$name,Apellido:$apellido,FechaNacimiento:$fechaNac,Sexo:$sexo,Usuario:$Usuario,Email:$Email,pass:$Contrasena,fecha:$fecha}) RETURN n
+            // { name: Nombre , apellido:Lastname,fechaNac:FechaNa,sexo:Sexo,Usuario:Usuario,Email:Correo,Contrasena:Contrasenia,fecha:fecha}
 
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
-        
-            //console.log(node.properties.name)
-        } finally {
-            //await session2.close()
-        }
-        contadorUsuario+=1;
+
+            // console.log(node.properties.name)
+        } finally { // await session2.close()
+        } contadorUsuario += 1;
         console.log(contadorUsuario);
     }
-      // on application exit:
-      //await driver.close()
+    // on application exit:
+    // await driver.close()
 
     /*  
     var success = [];
@@ -109,11 +112,10 @@ router.get('/exportarDatos', async (req, res) => {
         contadorUsuario+=1;
         
     }*/
-    
-    
-});
-    //cliente con su compra
-    //var arrayClientePedido=[];
+
+
+    // cliente con su compra
+    // var arrayClientePedido=[];
     /*
     var contadorCliente=0;
     while(usuarioCons.length>contadorCliente){ 
@@ -133,7 +135,7 @@ router.get('/exportarDatos', async (req, res) => {
 
         }
         contadorCliente+=1;
-    }
+    }*/
 
     // Agregar productos
 
@@ -141,22 +143,55 @@ router.get('/exportarDatos', async (req, res) => {
     var contadorProductosFinales = 0;
     while (productosCons.length > contadorProductosFinales) {
 
-        var nombre = productosCons[contadorProductosFinales].NombreArticulo;
-        var marca = productosCons[contadorProductosFinales].Marca;
-        var precio = productosCons[contadorProductosFinales].Precio;
-        var deportes = productosCons[contadorProductosFinales].Deportes;
-        var edicion = productosCons[contadorProductosFinales].Edicion;
-        var inventario = productosCons[contadorProductosFinales].Inventario;
-        var imagen = productosCons[contadorProductosFinales].Imagen;
-        var tipoP = productosCons[contadorProductosFinales].TipoProducto;
+        const Nombre = productosCons[contadorProductosFinales].NombreArticulo;
+        const Marca = productosCons[contadorProductosFinales].Marca;
+        const Precio = productosCons[contadorProductosFinales].Precio;
+        const Deportes = "";
+        const Edicion = productosCons[contadorProductosFinales].Edicion;
+        const Inventario = productosCons[contadorProductosFinales].Inventario;
+        const Imagen = productosCons[contadorProductosFinales].Imagen;
+        const TipoP = productosCons[contadorProductosFinales].TipoProducto;
 
+        if(productosCons[contadorProductosFinales].Deportes){
+
+            var contadorDeportes=1;
+
+            
+            while(productosCons[contadorProductosFinales].Deportes.length>contadorDeportes){ 
+
+                console.log(productosCons[contadorProductosFinales].Deportes[contadorDeportes])
+
+                Deportes+="Deporte: "
+                Deportes+=String(productosCons[contadorProductosFinales].Deportes[contadorDeportes].Deportes)+",";
+                Deportes+="  "
+                contadorDeportes+=1;
+            }
+
+        }
         // Agrega a neo
-        session2.run("CREATE (n:Producto {nombre:'" + nombre + "',marca:'" + marca + "',precio:" + precio + ",deportes:'" + deportes + "'" + ",edicion:'" + edicion + "',inventario:'" + inventario + "',imagen:'" + imagen + "',tipoP:'" + tipoP + "'})" + "RETURN n").then(function (result) {}
-        ).catch(function (err) {console.log('Se agrego el productos a neo')})
+
+        try {
+            const result = await session2.run('CREATE (n:Producto {Nombre:$nombre,Marca:$marca,Precio:$precio,Deportes:$deportes,Edicion:$edicion,Inventario:$inventario,Imagen:$imagen,TipoP:$tipoP}) RETURN n', {
+                nombre: Nombre,
+                marca: Marca,
+                precio: Precio,
+                deportes: Deportes,
+                edicion: Edicion,
+                inventario: Inventario,
+                imagen: Imagen,
+                tipoP: TipoP
+            })
+            const singleRecord = result.records[0]
+            const node = singleRecord.get(0)
+        } finally {
+            //await session2.close();
+        }
+        // session2.run("CREATE (n:Producto {nombre:'" + nombre + "',marca:'" + marca + "',precio:" + precio + ",deportes:'" + deportes + "'" + ",edicion:'" + edicion + "',inventario:'" + inventario + "',imagen:'" + imagen + "',tipoP:'" + tipoP + "'})" + "RETURN n").then(function (result) {}
+        // ).catch(function (err) {console.log('Se agrego el productos a neo')})
 
         contadorProductosFinales += 1;
     }
-
+    /*
     // Agregar compras
 
     console.log('AgregarCompras');
@@ -220,8 +255,8 @@ router.get('/exportarDatos', async (req, res) => {
     }
     success.push({text: "The migration was executed successfully"});
     res.render("prueba", {success});
-
-})*/
+*/
+});
 
 module.exports = router;
 
