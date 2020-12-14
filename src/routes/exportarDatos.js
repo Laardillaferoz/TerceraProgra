@@ -22,7 +22,7 @@ router.get('/exportarDatos', async (req, res) => {
 
     var success = [];
 
-    // Array de los productos por compra.
+    // Array de los productos por compra. nosé
     var ArrayProductosPorCompra = [];
 
     // Array del cliente con su compra.
@@ -33,7 +33,6 @@ router.get('/exportarDatos', async (req, res) => {
     var contadorUsuario = 0;
     while (usuarioCons.length > contadorUsuario) {
 
-        //ArrayCompraPorCliente.push(usuarioCons[contadorUsuario]);
         var Nombre = usuarioCons[contadorUsuario].name;
         var Apellido = usuarioCons[contadorUsuario].lastName;
         var FechaNa = usuarioCons[contadorUsuario].birth;
@@ -52,6 +51,29 @@ router.get('/exportarDatos', async (req, res) => {
     
     }
 
+    //cliente con su compra
+    //var arrayClientePedido=[];
+
+    var contadorCliente=0;
+    while(usuarioCons.length>contadorCliente){ 
+
+        ArrayCompraPorCliente.push(usuarioCons[contadorCliente]);
+
+        var contadorPedido=0;
+        while(comprasCons.length>contadorPedido){
+
+            if(comprasCons[contadorPedido].cliente==(usuarioCons[contadorCliente].email)){
+
+                ArrayCompraPorCliente.push(comprasCons[contadorPedido])
+
+            }
+
+            contadorPedido+=1;
+
+        }
+        contadorCliente+=1;
+    }
+
     // Agregar productos
 
     console.log('AgregarProductos');
@@ -68,10 +90,10 @@ router.get('/exportarDatos', async (req, res) => {
         var tipoP = productosCons[contadorProductosFinales].TipoProducto;
 
         // Agrega a neo
-        session2.run("CREATE (n:Producto {nombre:'" + nombre + "',marca:'" + marca + "',precio:" + precio + ",deportes:'" + deportes + "'" + ",edicion:'" + edicion + "',inventario:'" + inventario + "',imagen:'" + imagen + "',tipoP:'" + tipoP + "'})" + "RETURN n").then(function (result) { // console.log(result.records[0]._fields[0].properties)
-        }).catch(function (err) { console.log('Se agrego el productos a neo');})
+        session2.run("CREATE (n:Producto {nombre:'" + nombre + "',marca:'" + marca + "',precio:" + precio + ",deportes:'" + deportes + "'" + ",edicion:'" + edicion + "',inventario:'" + inventario + "',imagen:'" + imagen + "',tipoP:'" + tipoP + "'})" + "RETURN n").then(function (result) {}
+        ).catch(function (err) {console.log('Se agrego el productos a neo')})
 
-        contadorProductosFinales += 1
+        contadorProductosFinales += 1;
     }
 
     // Agregar compras
