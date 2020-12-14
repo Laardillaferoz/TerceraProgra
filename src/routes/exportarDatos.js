@@ -146,24 +146,25 @@ router.get('/exportarDatos', async (req, res) => {
         const Nombre = productosCons[contadorProductosFinales].NombreArticulo;
         const Marca = productosCons[contadorProductosFinales].Marca;
         const Precio = productosCons[contadorProductosFinales].Precio;
-        const Deportes = "";
         const Edicion = productosCons[contadorProductosFinales].Edicion;
         const Inventario = productosCons[contadorProductosFinales].Inventario;
-        const Imagen = productosCons[contadorProductosFinales].Imagen;
+        //const Imagen = productosCons[contadorProductosFinales].Imagen;
         const TipoP = productosCons[contadorProductosFinales].TipoProducto;
+        var sports = "";
 
+        //console.log(productosCons);
         if(productosCons[contadorProductosFinales].Deportes){
 
-            var contadorDeportes=1;
-
+            var contadorDeportes=0;
+            console.log(productosCons[contadorProductosFinales].Deportes[contadorDeportes]);
             
             while(productosCons[contadorProductosFinales].Deportes.length>contadorDeportes){ 
 
-                console.log(productosCons[contadorProductosFinales].Deportes[contadorDeportes])
+                console.log(productosCons[contadorProductosFinales].Deportes[contadorDeportes]);
 
-                Deportes+="Deporte: "
-                Deportes+=String(productosCons[contadorProductosFinales].Deportes[contadorDeportes].Deportes)+",";
-                Deportes+="  "
+                //Deportes+="Deporte: "
+                sports+=String(productosCons[contadorProductosFinales].Deportes[contadorDeportes].Deportes)+",";
+                //Deportes+="  "
                 contadorDeportes+=1;
             }
 
@@ -171,16 +172,18 @@ router.get('/exportarDatos', async (req, res) => {
         // Agrega a neo
 
         try {
-            const result = await session2.run('CREATE (n:Producto {Nombre:$nombre,Marca:$marca,Precio:$precio,Deportes:$deportes,Edicion:$edicion,Inventario:$inventario,Imagen:$imagen,TipoP:$tipoP}) RETURN n', {
+            const result = await session2.run('CREATE (n:Producto {Nombre:$nombre,Marca:$marca,Precio:$precio,Deportes:$deportes,Edicion:$edicion,Inventario:$inventario,TipoP:$tipoP}) RETURN n', {
                 nombre: Nombre,
                 marca: Marca,
                 precio: Precio,
-                deportes: Deportes,
+                deportes: sports,
                 edicion: Edicion,
                 inventario: Inventario,
-                imagen: Imagen,
+                //imagen: Imagen,
                 tipoP: TipoP
+                
             })
+            console.log('NEO PRODUCTOS');
             const singleRecord = result.records[0]
             const node = singleRecord.get(0)
         } finally {
