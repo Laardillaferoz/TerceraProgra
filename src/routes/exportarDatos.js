@@ -34,59 +34,28 @@ router.get('/exportarDatos', async (req, res) => {
     while (usuarioCons.length > contadorUsuario) {
 
         //ArrayCompraPorCliente.push(usuarioCons[contadorUsuario]);
-        var Nombre = usuarioCons[0].name;
-        var Apellido = usuarioCons[0].lastName;
-        var FechaNa = usuarioCons[0].birth;
-        var Sexo = usuarioCons[0].sex;
-        var Usuario = usuarioCons[0].user;
-        var Correo = usuarioCons[0].email;
-        var Contrasenia = usuarioCons[0].password;
-        var fecha = usuarioCons[0].date;
+        var Nombre = usuarioCons[contadorUsuario].name;
+        var Apellido = usuarioCons[contadorUsuario].lastName;
+        var FechaNa = usuarioCons[contadorUsuario].birth;
+        var Sexo = usuarioCons[contadorUsuario].sex;
+        var Usuario = usuarioCons[contadorUsuario].user;
+        var Correo = usuarioCons[contadorUsuario].email;
+        var Contrasenia = usuarioCons[contadorUsuario].password;
+        var fecha = usuarioCons[contadorUsuario].date;
 
         // Agrega el usuario primero a Neo
         session2.run("CREATE (n:Usuario {nombre:'" + Nombre + "',apellido:'" + Apellido + "',fechaNaciemiento:" + FechaNa + ",sexo:'" + Sexo + "'" + ",usuario:'" + Usuario + "',correo:'" + Correo + "',contrasenia:'" + Contrasenia + "',fecha: '" + fecha + "'})" + "RETURN n").then(function (result) {}).catch(function (err) {
             console.log('Se agrego el cliente a neo');
         })
 
-        contadorUsuario +=1
-
-        //var contadorCompras = 0;
-
-        //while (comprasCons.length > contadorCompras) {
-
-           /* if (comprasCons[contadorCompras].cliente == usuarioCons[contadorUsuario].email) {
-
-                ArrayCompraPorCliente.push(comprasCons[contadorCompras])
-
-            }*/
-
-           /* var Nombre = ArrayCompraPorCliente[0].name;
-            var Apellido = ArrayCompraPorCliente[0].lastName;
-            var FechaNa = ArrayCompraPorCliente[0].birth;
-            var Sexo = ArrayCompraPorCliente[0].sex;
-            var Usuario = ArrayCompraPorCliente[0].user;
-            var Correo = ArrayCompraPorCliente[0].email;
-            var Contrasenia = ArrayCompraPorCliente[0].password;
-            var fecha = ArrayCompraPorCliente[0].date;
-
-            // Agrega el usuario primero a Neo
-            session2.run("CREATE (n:Usuario {nombre:'" + Nombre + "',apellido:'" + Apellido + "',fechaNaciemiento:" + FechaNa + ",sexo:'" + Sexo + "'" + ",usuario:'" + Usuario + "',correo:'" + Correo + "',contrasenia:'" + Contrasenia + "',fecha: '" + fecha + "'})" + "RETURN n").then(function (result) {}).catch(function (err) {})
-
-            contadorCompras += 1;
-
-        }
-
-        
-        console.log(ArrayCompraPorCliente);*/
-    }
-
+        contadorUsuario += 1;
     
-
+    }
 
     // Agregar productos
 
     console.log('AgregarProductos');
-    var contadorProductosFinales = 1;
+    var contadorProductosFinales = 0;
     while (productosCons.length > contadorProductosFinales) {
 
         var nombre = productosCons[contadorProductosFinales].NombreArticulo;
@@ -98,9 +67,9 @@ router.get('/exportarDatos', async (req, res) => {
         var imagen = productosCons[contadorProductosFinales].Imagen;
         var tipoP = productosCons[contadorProductosFinales].TipoProducto;
 
-        // Agrega a la neo
+        // Agrega a neo
         session2.run("CREATE (n:Producto {nombre:'" + nombre + "',marca:'" + marca + "',precio:" + precio + ",deportes:'" + deportes + "'" + ",edicion:'" + edicion + "',inventario:'" + inventario + "',imagen:'" + imagen + "',tipoP:'" + tipoP + "'})" + "RETURN n").then(function (result) { // console.log(result.records[0]._fields[0].properties)
-        }).catch(function (err) {})
+        }).catch(function (err) { console.log('Se agrego el productos a neo');})
 
         contadorProductosFinales += 1
     }
@@ -132,7 +101,7 @@ router.get('/exportarDatos', async (req, res) => {
         // Agrega la compra a neo
         session2.run("CREATE (n:Compras {cliente:'" + Cliente + "',FechaCompra:'" + FechaCompra + "',Productos:'" + Productos + "',precioFinal:'" + PrecioFinal + " RETURN n").then(function (result) {
             console.log(result.records[0]._fields[0].properties)
-        }).catch(function (err) {})
+        }).catch(function (err) { console.log('Se agrego la compra a neo');})
         ArrayCompraPorCliente += 1
     }
 
@@ -142,7 +111,7 @@ router.get('/exportarDatos', async (req, res) => {
     }).catch(function (err) {})
 
     ArrayCompraPorCliente = [];
-    contadorUsuarios += 1;
+    
 
 
     // Relaciones entre compra y producto
