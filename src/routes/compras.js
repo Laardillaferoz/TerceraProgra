@@ -91,6 +91,7 @@ router.post('/compras/finalCompra', async (req, res) => {
                 console.log(cantidadvieja)
                 var cantidadnueva = (parseInt(cantidadvieja) - parseInt(Inventario));
                 resp.Inventario = cantidadnueva;
+                resp.Vendidos += Inventario;
                 console.log(cantidadnueva)
                 resp.save();
             }
