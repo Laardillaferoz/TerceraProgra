@@ -1,21 +1,22 @@
 {{#if errors}}
 <div class="alert alert-danger alert-dismissible fade show" role="alert"
-    style="font-family: 'Times New Roman', Times, serif;">
-    {{error}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+  style="font-family: 'Times New Roman', Times, serif;">
+  {{error}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">
+      ×
+    </span>
+  </button>
 </div>
 {{/if}}
-
-
-
 {{#each errors}}
 <div class="alert alert-danger alert-dismissible fade show" role="alert"
-    style="font-family: 'Times New Roman', Times, serif;">
-    {{text}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+  style="font-family: 'Times New Roman', Times, serif;">
+  {{text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">
+      ×
+    </span>
+  </button>
 </div>
 {{/each}}

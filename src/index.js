@@ -34,7 +34,7 @@ app.set('view engine', '.hbs');
 
 //Middlewares
 app.use(multer({
-    dest: path.join(__dirname,'public/uploads')
+    dest: path.join(__dirname, 'public/uploads')
 }).single('image'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

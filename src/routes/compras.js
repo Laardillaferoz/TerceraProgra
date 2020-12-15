@@ -5,14 +5,14 @@ const productosDisponibles = require('../models/productoModel');
 const promocion = require('../models/promocionModel');
 const router = express.Router();
 
-router.get('/compras/registrarCompra', async(req, res) => {
+router.get('/compras/registrarCompra', async (req, res) => {
     const ProductosHist = await productosDisponibles.find({});
     res.render('compras/registrarCompra', { ProductosHist });
 
 });
 
 require('../index').compraActual = new compras;
-router.post('/compras/registrarCompra', async(req, res) => {
+router.post('/compras/registrarCompra', async (req, res) => {
     var ProductoCompra = req.body.ProductoCompra;
     var Cantidad = req.body.Cantidad;
 
@@ -32,7 +32,7 @@ router.post('/compras/registrarCompra', async(req, res) => {
         require('../index').compraActual.cliente = require('../index').clienteActual;
         var productosD = require('../index').compraActual.ProductoCompra;
 
-        await productosDisponibles.findOne({ NombreArticulo: ProductoCompra }, async(err, found) => {
+        await productosDisponibles.findOne({ NombreArticulo: ProductoCompra }, async (err, found) => {
 
             if (!found) {
                 errors.push({ text: "Producto no exite" });
@@ -70,17 +70,17 @@ router.post('/compras/registrarCompra', async(req, res) => {
     }
 });
 
-router.post('/compras/finalCompra', async(req, res) => {
-        var success = [];
+router.post('/compras/finalCompra', async (req, res) => {
+    var success = [];
 
-        require('../index').compraActual.save();
+    require('../index').compraActual.save();
 
-        var i = 0;
-        var largo = require('../index').compraActual.products.length;
+    var i = 0;
+    var largo = require('../index').compraActual.products.length;
 
-        while (i < largo) {
-            var ProductoCompra = require('../index').compraActual.products[i].ProductoCompra;
-            var Inventario = require('../index').compraActual.products[i].Cantidad;
+    while (i < largo) {
+        var ProductoCompra = require('../index').compraActual.products[i].ProductoCompra;
+        var Inventario = require('../index').compraActual.products[i].Cantidad;
 
 
         await productosDisponibles.findOne({ NombreArticulo: ProductoCompra }, function (err, resp) {
@@ -101,7 +101,7 @@ router.post('/compras/finalCompra', async(req, res) => {
     res.render('./index', { success })
     delete require('../index').compraActual;
     require('../index').compraActual = new compras;
-})
+});
 // router.get('/compras/finalCompra',(req,res)=>{
 //     res.render('compras/registrarCompra')
 //})

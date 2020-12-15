@@ -11,7 +11,7 @@ router.get('/admins/consultaBuscarCli', (req, res) => {
     res.render('admins/consultaBuscarCli');
 });
 
-router.get('/admins/consultaBuscarPro', async(req, res) => {
+router.get('/admins/consultaBuscarPro', async (req, res) => {
     const ProductosNom = await producto.find({});
     res.render('admins/consultaBuscarPro', { ProductosNom });
 });
@@ -20,7 +20,7 @@ router.get('/admins/resultadoBuscarPro', (req, res) => {
     res.render('admins/resultadoBuscarPro');
 });
 
-router.post('/admins/consultaBuscarProEspe', async(req, res) => {
+router.post('/admins/consultaBuscarProEspe', async (req, res) => {
     var produc = req.body.NombreArticulo;
     var errors = [];
     console.log("El articulo es: ");
@@ -50,7 +50,7 @@ router.post('/admins/consultaBuscarProEspe', async(req, res) => {
     }
 });
 
-router.get('/admins/consultaVerPro', async(req, res) => {
+router.get('/admins/consultaVerPro', async (req, res) => {
     const productos = await producto.find();
     console.log("Cantidad de productos");
     console.log(productos.length);
@@ -59,8 +59,8 @@ router.get('/admins/consultaVerPro', async(req, res) => {
     const cantidad = productos.length;
     var i = 0;
     var Productos = [];
-    while(i < cantidad) {
-        if(productos[i].Vendidos != 0) {
+    while (i < cantidad) {
+        if (productos[i].Vendidos != 0) {
             Productos.push(productos[i]);
         }
         i++;
