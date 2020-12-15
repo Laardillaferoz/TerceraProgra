@@ -3,19 +3,9 @@
         style="color:crimson; font-family: 'Times New Roman', Times, serif; font-weight: bold;">
         ~SportStore~
     </h1>
-    <h1 style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">Productos adquiridos</h1>
-    <!--<div class="form-group">
-        <center>
-            <button class="btn btn-primary btn-block"
-                style=" background-color:darkslategrey; height:60px; width:300px; font-size:25px;">
-                <a href="/admins/consultaBuscarPro">
-                    <i class="fas fa-question-circle"> Realizar consulta</i>
-                </a>
-            </button>
-        </center>
-    </div>-->
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">Productos
+        adquiridos</h1>
 </div>
-
 
 <br>
 
@@ -31,20 +21,23 @@
                     Producto: {{NombreArticulo}}
                 </h5>
                 <div class="card-body" style="border-radius: 6mm; background-color:#cfd8dc;">
-                    <p>
+                    <!--<p>
                         <i class="fas fa-copyright"> Marca {{Marca}}</i>
                     </p>
                     <p>
                         <i class="fas fa-dollar-sign"> Precio: ₡{{Precio}}</i>
                     </p>
+                    {{#each Deportes}}
                     <p>
-                        <i class="fas fa-running"> Deportes: {{Deportes.[0]}}</i>
+                        <i class="fas fa-running"> Deportes: {{Deportes}}</i>
+                        <br>
                     </p>
+                    {{/each}}
                     <p style="font-weight: bold;">
-                        <i class="fab fa-old-republic"> ¿Es edición limitada?</i>
-                    </p>
+                        <i class="fab fa-old-republic"> ¿Es edición limitada? {{Edicion}}</i>
+                    </p>-->
                     <p>
-                        <i class="fas fa-list-ol"> Inventario: {{Inventario}}</i>
+                        <i class="fas fa-list-ol"> Unidades vendidas: {{Vendidos}}</i>
                     </p>
                 </div>
                 <br><br>
@@ -53,4 +46,4 @@
     </div>
     {{/each}}
 </div>
-<br><br><br>
+<br>

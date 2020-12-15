@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const producto = require('../models/productoModel');
@@ -14,21 +15,34 @@ router.get('/admins/consultaBuscarPro', (req, res) => {
     res.render('admins/consultaBuscarPro');
 });
 
+router.get('/admins/resultadoBuscarPro', (req, res) => {
+    res.render('admins/resultadoBuscarPro');
+});
+
 router.post('/admins/consultaBuscarProEspe', async (req, res) => {
-    var produc = req.body;
+    var produc = req.body.NombreArticulo;
     var errors = [];
-    console.log(req.body);
+    console.log("El articulo es: ");
+    console.log(produc);
+    console.log("El articulo length es: ");
+    console.log(produc.length);
 
     if (produc.length <= 0) {
-        errors.push({ text: "Por vafor ingrese un producto." })
+        errors.push({ text: "Por favor ingrese un producto." })
     }
     if (errors.length > 0) {
         res.render('admins/consultaBuscarPro', { produc });
     }
     else {
-        const buscPro = await producto.findOne({ produc: NombreArticulo });
+        const buscPro = await producto.findOne({ NombreArticulo: produc });
+        console.log("Los datos de buscPro es: ");
+        console.log(buscPro);
+
+        buscPro.save();
+
         if (buscPro) {
-            res.render('admins/consultaBuscarPro', { produc });
+            res.render('admins/resultadoBuscarPro', { buscPro });
+            return;
         }
         console.log('JIJIJIJ');
         res.redirect('/admins/consultaBuscarPro');

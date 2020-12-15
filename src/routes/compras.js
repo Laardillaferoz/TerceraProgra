@@ -1,5 +1,4 @@
 const express = require('express');
-//const { compraActual } = require('..');
 const compras = require('../models/compras');
 const { findOneAndUpdate, countDocuments } = require('../models/productoModel');
 const productosDisponibles = require('../models/productoModel');
@@ -17,7 +16,6 @@ router.post('/compras/registrarCompra', async (req, res) => {
     var errors = [];
     var success = [];
     console.log(require('../index').compraActual);
-    //require('../index').compraActual = new compras;
     console.log(require('../index').compraActual);
 
     console.log('hola1');
@@ -26,7 +24,7 @@ router.post('/compras/registrarCompra', async (req, res) => {
         req.flash('error_msg', "Ingrese el producto");
     }
     if (!Cantidad) {
-        errors.push({ text: "You must enter the quantity" });
+        errors.push({ text: "Debe ingresar la cantidad" });
     } else {
         require('../index').compraActual.cliente = require('../index').clienteActual;
         var productosD = require('../index').compraActual.ProductoCompra;
@@ -35,34 +33,30 @@ router.post('/compras/registrarCompra', async (req, res) => {
 
             if (!found) {
                 errors.push({ text: "Producto no exite" });
-                //req.flash('error_msg' , "El producto NO existe");
                 res.render("./compras/registrarCompra", { errors });
             } else {
                 if (parseInt(found.Inventario) < parseInt(Cantidad)) {
-                    errors.push({ text: "No hay suficuente caridad" });
-                    //req.flash('error_msg' , "No cantidad");
+                    errors.push({ text: "No hay suficiente cantidad" });
                     res.render("./compras/registrarCompra", { errors });
                 } else {
-                    
-                    
+
+
                     var Actual = require('../index').compraActual.precioFinal;
                     var precio = (parseInt(found.Precio) * parseInt(Cantidad));
-                    
+
                     var today = new Date();
                     var dd = String(today.getDate()).padStart(2, '0');
                     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                     var yyyy = today.getFullYear();
 
                     today = dd + '/' + mm + '/' + yyyy;
-                    
 
-                    require('../index').compraActual.products.push({ ProductoCompra: ProductoCompra, Cantidad: Cantidad, unitPrice: found.Precio,FechaCompra:today });
+
+                    require('../index').compraActual.products.push({ ProductoCompra: ProductoCompra, Cantidad: Cantidad, unitPrice: found.Precio, FechaCompra: today });
                     require('../index').compraActual.precioFinal = (parseInt(Actual) + parseInt(precio));
-                    //require('../index').compraActual.Precio = (parseInt(compraActual) + parseInt(Precio));
 
                     success.push({ text: "Se añadio producto" });
 
-                    //req.flash('success_msg', 'Producto registrado');
                     console.log(require('../index').compraActual);
                     console.log(require('../index').compraActual.products.length)
                     res.render("./compras/registrarCompra", { success });
@@ -94,7 +88,9 @@ router.post('/compras/finalCompra', async (req, res) => {
                 console.log(cantidadvieja)
                 var cantidadnueva = (parseInt(cantidadvieja) - parseInt(Inventario));
                 resp.Inventario = cantidadnueva;
+                resp.Vendidos = Inventario;
                 console.log(cantidadnueva)
+                console.log(Inventario);
                 resp.save();
             }
         });
@@ -104,15 +100,12 @@ router.post('/compras/finalCompra', async (req, res) => {
     res.render('./index', { success })
     delete require('../index').compraActual;
     require('../index').compraActual = new compras;
-})
-// router.get('/compras/finalCompra',(req,res)=>{
-//     res.render('compras/registrarCompra')
-//})
-
+});
 
 router.get('/compras/historialdeCompras', async (req, res) => {
     var clienteHistoria = require('../index').clienteActual;
     const comprasHist = await compras.find({ cliente: clienteHistoria });
     res.render('compras/historialdeCompras', { comprasHist });
-})
+});
+
 module.exports = router;

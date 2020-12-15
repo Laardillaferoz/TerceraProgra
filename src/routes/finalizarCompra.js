@@ -28,9 +28,7 @@ router.post('/compras/finalizarCompra', async (req, res) => {
         } else {
             console.log(require('../index').compraActual.NombreProducto = compras);
         }
-
     })
-
 });
 
 module.exports = router;

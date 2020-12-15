@@ -48,24 +48,6 @@ router.post('/Products/Promocion', async (req, res) => {
     req.flash('success_msg', 'Promocion agregada');
     console.log('JIJIJIJ2');
     res.redirect('/admins/principal');
-
-    /**
-    else {
-        const BusPromocion = await promocion.findOne({ NombrePromocion: NombrePromocion });
-        if (BusPromocion) {
-            req.flash('error_msg', 'Promocion ya agregada');
-            res.redirect('admins/principal');
-        }
-        else {
-            const nuevaPromocion = new Promocion({ NombrePromocion, Descripcion, NombreProducto, DescuentoRegalia, FechaInicio, FechaFin });
-            await nuevaPromocion.save();
-            req.flash('success_msg', 'Promocion agregada');
-            console.log('JIJIJIJ2');
-            res.redirect('/admins/principal');
-        }
-    }
-    */
-
 });
 
 module.exports = router;

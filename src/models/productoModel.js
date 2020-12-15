@@ -20,6 +20,9 @@ const Schemaproducto = new Schema({
     Inventario: {
         type: String, required: true
     },
+    Vendidos: {
+        type: String  
+    },
     Imagen: {
         data: Buffer,
         contentype: String

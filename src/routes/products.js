@@ -1,20 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const producto = require('../models/productoModel');
-const fs=require('fs');
+const fs = require('fs');
 var bodyParser = require('body-parser');
 const multer = require('multer');
-
-
 
 router.get('/Products/ProductView', (req, res) => {
     res.render('Products/ProductView');
 });
-/*
-router.get('/users/signup', async (req, res) => {
-    res.render('users/signup');
-});
-*/
+
 const ObjetoProducto = new producto();
 
 router.post('/Products/ProductView', async (req, res) => {
@@ -24,6 +18,7 @@ router.post('/Products/ProductView', async (req, res) => {
         Precio,
         Edicion,
         Inventario,
+        Vendidos,
         Imagen,
         TipoProducto
     } = req.body;
@@ -53,7 +48,6 @@ router.post('/Products/ProductView', async (req, res) => {
     if (TipoProducto.length < 4) {
         errors.push({text: "La contraseña debe tener un mínimo de 4 caracteres"});
     }*/
-
     if (errors.length > 0) {
         res.render('Products/ProductView', {
             NombreArticulo,
@@ -70,16 +64,17 @@ router.post('/Products/ProductView', async (req, res) => {
             req.flash('error_msg', 'Producto ya registrado');
             res.redirect('/Products/ProductView');
         } else {
-            
-                       
-            var path='C:/productos/'+Imagen;
+
+
+            var path = 'C:/productos/' + Imagen;
             ObjetoProducto.NombreArticulo = NombreArticulo;
             ObjetoProducto.Marca = Marca;
             ObjetoProducto.Precio = Precio;
             ObjetoProducto.Edicion = Edicion;
             ObjetoProducto.Inventario = Inventario;
+            ObjetoProducto.Vendidos = '0';
             ObjetoProducto.Imagen.data = fs.readFileSync(path);
-            ObjetoProducto.Imagen.contentype='image/png';
+            ObjetoProducto.Imagen.contentype = 'image/png';
             ObjetoProducto.TipoProducto = TipoProducto;
             res.render('Products/UsoDeportes', { ObjetoProducto });
         }
@@ -106,25 +101,6 @@ router.post('/Products/TerminaProducto', async (req, res) => {
     req.flash('success_msg', 'Producto registrado');
     console.log('JIJIJIJ2');
     res.redirect('/Products/ProductView');
-})
-/*
-        const nuevoProducto = new producto({
-            NombreArticulo,
-            Marca,
-            Precio,
-            Deportes,
-            Edicion,
-            Inventario,
-            Imagen,
-            TipoProducto
-        });
-        await nuevoProducto.save();
-        console.log('JIJIJIJ');
-        req.flash('success_msg', 'Producto registrado');
-        console.log('JIJIJIJ2');
-        res.redirect('/Products/ProductView');
-    }
-
-});*/
+});
 
 module.exports = router;

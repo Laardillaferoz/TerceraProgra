@@ -44,7 +44,6 @@ router.post('/users/signin', passport.authenticate('local'), async (req, res) =>
             res.render("./users/signin", { errors })
             return;
         }
-
         if (resp) {
             require('../index').clienteActual = CorreoCliente;
             //require('../index').clienteActual=CorreoCliente;
@@ -54,18 +53,7 @@ router.post('/users/signin', passport.authenticate('local'), async (req, res) =>
             res.render("./users/signin", { errors })
         }
     })
-
 });
-/*
-router.post('/users/signin', passport.authenticate('local'), async(req,res)=>{
-    
-
-    //successRedirect: '/principal/userPrincipal',
-    //failureRedirect: '/users/signin',
-    //failureFlash: true
-    res.redirect('/principal/userPrincipal');
-    
-});*/
 
 //Registro
 router.get('/users/signup', (req, res) => {
@@ -107,16 +95,8 @@ router.post('/users/signup', async (req, res) => {
 
 });
 
-/**router.get('users/logout', (req, res) => {
-    req.logout();
-    req.session = null;
-    req.flash("success_msg", "Has cerrado sesion.");
-    res.redirect('/');
-});*/
-
 router.get('/users/logout', function (req, res) {
     req.logout();
-    //req.session.destroy();
     res.redirect('/');
 });
 
