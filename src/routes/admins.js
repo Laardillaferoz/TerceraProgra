@@ -51,7 +51,21 @@ router.post('/admins/consultaBuscarProEspe', async(req, res) => {
 });
 
 router.get('/admins/consultaVerPro', async(req, res) => {
-    const Productos = await producto.find();
+    const productos = await producto.find();
+    console.log("Cantidad de productos");
+    console.log(productos.length);
+    console.log("Posicion 0");
+    console.log(productos[9].Vendidos);
+    const cantidad = productos.length;
+    var i = 0;
+    var Productos = [];
+    while(i < cantidad) {
+        if(productos[i].Vendidos != 0) {
+            Productos.push(productos[i]);
+        }
+        i++;
+    }
+
     res.render('admins/consultaVerPro', { Productos });
 });
 
