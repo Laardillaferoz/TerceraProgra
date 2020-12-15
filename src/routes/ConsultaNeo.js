@@ -1,16 +1,36 @@
-const express= require('express');
+const express = require('express');
 const router = express.Router();
 const neo4j = require("neo4j-driver");
-const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("progra", "123"));
-const session3= driver.session();
+const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "1234"));
+const session3 = driver.session();
 
 
-router.post('/consults/consult1',async(req,res)=>{
-    var idClient=req.body.idClient;
-    var errors=[];
+router.post('/admins/consultaBuscarCliNombre', async (req, res) => {
+    var valor = req.body.Nombre;
+    var errors = [];
 
-    session3.run('MATCH (c:Cliente)')
+    if (!valor) {
+        errors.push({text: "Por favor, ingrese el valor de busqueda"});
+        console.log('VAACIO');
+        res.render("admins/consultaBuscarCli");
 
+    } else {
+        session3.run('MATCH (c:Usuario{nombre:"' + valor + '"})-->(Compro:Compra) return Compro')
+        .then(function(resultado){
+            var compra1=resultado.records[0]._fields[0].properties;
+            var compra2=resultado.records[1]._fields[0].properties;
+            var compra3=resultado.records[2]._fields[0].properties;
+
+
+            res.render("admins/consultaBuscarCli",{compra1,compra2,compra3});
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+
+    }
 })
 
+
 module.exports = router;
+
