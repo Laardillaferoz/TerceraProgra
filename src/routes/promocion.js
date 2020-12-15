@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const productos = require('../models/productoModel');
 const Promocion = require('../models/promocionModel');
 
 
-router.get('/Products/Promocion', (req, res) => {
-    res.render('Products/Promocion');
+router.get('/Products/Promocion', async(req, res) => {
+    const ProductosNombre = await productos.find({});
+    res.render('Products/Promocion', { ProductosNombre });
 });
 
-router.post('/Products/Promocion', async (req, res) => {
+router.post('/Products/Promocion', async(req, res) => {
     const { NombrePromocion, Descripcion, NombreProducto, DescuentoRegalia, FechaInicio, FechaFin } = req.body;
     const errors = [];
     console.log(req.body)

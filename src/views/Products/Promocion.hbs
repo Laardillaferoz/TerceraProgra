@@ -29,7 +29,7 @@
                                 style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
                         </div>
                         <div class="form-group">
-                            <i class="fas fa-signature"> Nombre del producto</i>
+                            <i class="fas fa-signature"> Nombre del producto (Lista de productos abajo)</i>
                             <input type="text" class="form-control" name="NombreProducto"
                                 placeholder="Ingrese el nombre del producto al que aplica" value="{{NombreProducto}}"
                                 style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
@@ -99,4 +99,29 @@
             </div>
         </div>
     </div>
+</div>
+<h1></h1>
+<h1></h1>
+<hr class="my-3">
+<p class=" lead text-center"
+    style=" color:crimson; font-size:50px; font-family: 'Times New Roman', Times, serif; font-weight: bolder;">
+    ↓ Productos ↓
+<p>
+    <hr class="my-3">
+<div class="row" style="font-family: 'Times New Roman', Times, serif;">
+    <br><br>
+    {{#each ProductosNombre}}
+    <div class="col-md-3">
+        <div class="purchase">
+            <div class="body">
+                <h5 class="productos"
+                    style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">
+                    <i class="fas fa-shopping-bag"></i>
+                    Producto: {{NombreArticulo}}
+                </h5>
+                <hr class="my-3">
+            </div>
+        </div>
+    </div>
+    {{/each}}
 </div>

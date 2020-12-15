@@ -11,15 +11,16 @@ router.get('/admins/consultaBuscarCli', (req, res) => {
     res.render('admins/consultaBuscarCli');
 });
 
-router.get('/admins/consultaBuscarPro', (req, res) => {
-    res.render('admins/consultaBuscarPro');
+router.get('/admins/consultaBuscarPro', async(req, res) => {
+    const ProductosNom = await producto.find({});
+    res.render('admins/consultaBuscarPro', { ProductosNom });
 });
 
 router.get('/admins/resultadoBuscarPro', (req, res) => {
     res.render('admins/resultadoBuscarPro');
 });
 
-router.post('/admins/consultaBuscarProEspe', async (req, res) => {
+router.post('/admins/consultaBuscarProEspe', async(req, res) => {
     var produc = req.body.NombreArticulo;
     var errors = [];
     console.log("El articulo es: ");
@@ -32,8 +33,7 @@ router.post('/admins/consultaBuscarProEspe', async (req, res) => {
     }
     if (errors.length > 0) {
         res.render('admins/consultaBuscarPro', { produc });
-    }
-    else {
+    } else {
         const buscPro = await producto.findOne({ NombreArticulo: produc });
         console.log("Los datos de buscPro es: ");
         console.log(buscPro);
@@ -50,7 +50,7 @@ router.post('/admins/consultaBuscarProEspe', async (req, res) => {
     }
 });
 
-router.get('/admins/consultaVerPro', async (req, res) => {
+router.get('/admins/consultaVerPro', async(req, res) => {
     const Productos = await producto.find();
     res.render('admins/consultaVerPro', { Productos });
 });
