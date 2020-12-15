@@ -1,1 +1,51 @@
 <h1>Consulta Buscar Cliente</h1>
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/each}}
+
+<div class="jumbotron-mt-4">
+    <h1 class="display-1 text-center"
+        style="color:crimson; font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+        ~SportStore~
+    </h1>
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align: center;">Buscar Producto
+    </h1>
+
+    <form action='/admins/consultaBuscarProEspe' method="POST">
+        <div class="home_title text-center">
+            <br>
+            <br>
+            <label style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">Nombre
+                Producto
+                <br>
+                <input type="text" name="NombreArticulo" id="NombreArticulo">
+            </label>
+            <br>
+            <br>
+            <div class="form-group">
+                            <b>
+                                <i class="fab fa-old-republic"> Desea buscar por usuario o nombre</i>
+                            </b>
+                            <select class="form-select" aria-label="Default select example" name="Edicion"
+                                value="{{Edicion}}"
+                                style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">
+                                <option value="Selecciones el método"></option>
+                                <option value="Usuario">Usuario</option>
+                                <option value="Nombre">Nombre</option>
+                            </select>
+                        </div>
+            <button class="btn btn-primary btn-block" type="submit"
+                style=" background-color:darkslategrey; height:60px; width:300px; font-size:25px;">
+                <i class="fas fa-question-circle"> Realizar consulta</i>
+            </button>
+            <br>
+            <br>
+        </div>
+    </form>
+
+</div>

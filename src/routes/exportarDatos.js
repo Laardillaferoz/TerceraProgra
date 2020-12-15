@@ -192,7 +192,7 @@ router.get('/exportarDatos', async (req, res) => {
         }
     
     
-        session2.run('MATCH (a:Usuario),(b:Compra) WHERE a.Email=b.Cliente and a.Email="' +ArrayCompraPorCliente[0].email+ '" CREATE (a)-[r:didPurchase]->(b) RETURN r').then(function (result) {
+        session2.run('MATCH (a:Usuario),(b:Compra) WHERE a.Email=b.Cliente and a.Email="' +ArrayCompraPorCliente[0].email+ '" CREATE (a)-[r:Compro]->(b) RETURN r').then(function (result) {
             console.log(result.records[0]._fields[0].properties)
         }).catch(function (err) {})
 
