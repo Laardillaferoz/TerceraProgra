@@ -15,6 +15,21 @@ router.get('/hola'), async (req, res) => {
 };
 
 router.get('/exportarDatos', async (req, res) => {
+
+    const session5 = driver.session();
+    try {
+        const result = await session5.run('MATCH (n) detach delete n', {           
+        })
+        //const singleRecord = result.records[0]
+        //const node = singleRecord.get(0)
+
+
+    } finally {}
+    
+    //res.render("Admins/principal") 
+    session5.close();
+
+
     // PASAR DE MONGO A NEO4J
     var productsFinal = [];
     // Constantes que guardan los modelos
